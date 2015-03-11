@@ -2,15 +2,115 @@ import json
 import requests
 import os
 
-API_KEY = os.environ.get("EDIBUS_API_KEY")
+API_KEY = os.environ.get("TFE_API_KEY")
 
-url = 'https://api.steampowered.com/IDOTA2Match_570/'
+general_url = 'https://tfe-opendata.com/api/v1/'
 
 essential_parameters = dict(
-	key = API_KEY,
-	language = "en_us",
-	format = "JSON"
+	key = API_KEY
+)
+
+def getStops():
+
+	url = general_url + 'stops'
+
+	parameters = essential_parameters
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def serviceUpdates():
+
+	url = general_url + 'services'
+
+	parameters = essential_parameters
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def timeTable(stop_id):
+
+	url = general_url + 'timetables/' + str(stop_id)
+
+	parameters = dict(
+		stop_id = stop_id)
 	)
+
+	parameters.update(essential_parameters)
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def journeys(service_name):
+
+	url = general_url + '/journeys/' + service_name
+
+	parameters = dict(
+		service_name = unicode(service_name)
+	)
+
+	parameters.update(essential_parameters)
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def stop2Stop(start_stop_id, end_stop_id, date, duration):
+
+	url = general_url + '/stoptostop-timetable/'
+
+	parameters = dict(
+		start_stop_id = start_stop_id,
+		finish_stop_id = end_stop_id,
+		date = date,
+		duration = duration
+	)
+
+	parameters.update(essential_parameters)
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def disruptions():
+
+	url = general_url + '/status'
+
+	parameters = essential_parameters
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def directions(initial_location, destination_location, date, time_mode):
+
+	url = general_url + '/directions/'
+
+	parameters = dict(
+		start = initial_location,
+		finish = destination_location,
+		date = date,
+		time_mode = unicode(time_mode)
+	)
+
+	parameters.update(essential_parameters)
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
+
+def live_bus_location()
+
+	url = 'vehicle_locations'
+
+	parameters = essential_parameters
+
+	response = requests.get(url = url, params = parameters)
+
+	return response.json()
 
  # url = 'https://api.steampowered.com/IDOTA2Match_570/GetMatchDetails/V001/?match_id=521490285&key=' + 'API_KEY'
 
