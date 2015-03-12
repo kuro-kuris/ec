@@ -114,20 +114,3 @@ def live_bus_location():
 
 
 
-# # open a file
-
-# functions = 
-
-# f = open("tfe_" + function + ".txt", "w")
-
-# match_history_json = getMatchHistory()
-
-# json.dump(match_history_json, f, sort_keys = True, indent = 4, ensure_ascii = False)
-
-# f.close()
-
-# f = open("game_details.txt", "w")
-
-# game_details_json = getMatchDetails(789645621)
-
-# json.dump(game_details_json, f, sort_keys = True, indent = 4, ensure_ascii = False)

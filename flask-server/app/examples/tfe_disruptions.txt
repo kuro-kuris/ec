@@ -1,0 +1,40 @@
+{
+    "disruptions": [
+        {
+            "category": "stop_closed", 
+            "id": "5887", 
+            "services_affected": [
+                "15"
+            ], 
+            "summary": "Due to roadworks buses are unable to serve the Meadowmill sports centre and will terminate on the B1361 until further notice.", 
+            "type": "incident", 
+            "updated": 1420556108, 
+            "web_link": null
+        }, 
+        {
+            "category": "closure", 
+            "id": "291", 
+            "services_affected": [
+                "24", 
+                "29", 
+                "42"
+            ], 
+            "summary": "Services 24 29 and 42 will be diverted off-peak (0930-1530hrs) each day from Monday 5 January for 5 days.", 
+            "type": "planned", 
+            "updated": 1420085519, 
+            "web_link": "http://www.lothianbuses.com/service-updates/details/stockbridge-from-monday-5-january"
+        }, 
+        {
+            "category": "closure", 
+            "id": "289", 
+            "services_affected": [
+                "20"
+            ], 
+            "summary": "Kingsknowe Road South will be closed for resurfacing from Tuesday 6 January for 2 weeks.&#13;&#10;", 
+            "type": "planned", 
+            "updated": 1420085374, 
+            "web_link": "http://www.lothianbuses.com/service-updates/details/kingsknowe-from-tuesday-6-january-2015"
+        }
+    ], 
+    "last_updated": 1420560822
+}
