@@ -1,6 +1,6 @@
 # ediBus
 
-# Installation
+## Installation
 
 Install requirements from requirements.txt, it is recommended to install the packages in a virtualenv.
 
