@@ -55,3 +55,6 @@ target/
 
 # virtualenvs
 venv
+
+# ignore videos
+sample.avi

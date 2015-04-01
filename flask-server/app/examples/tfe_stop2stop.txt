@@ -1,7 +1,0 @@
-{
-    "date": 1426371379, 
-    "duration": 120, 
-    "finish_stop_id": 36232896, 
-    "journeys": [], 
-    "start_stop_id": 36236495
-}
