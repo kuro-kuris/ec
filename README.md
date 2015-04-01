@@ -16,5 +16,5 @@ Within the shell import the models and you can call Service.objects.get() or do 
 
 ## Testing the API
 
-You can test the API with curl: $ curl $ curl http://127.0.0.1:5000/api/buses/<name>
-Where name is the service name.
+You can test the API with curl: $ curl $ curl http://127.0.0.1:5000/api/buses/NAME
+Where NAME is the service name.
