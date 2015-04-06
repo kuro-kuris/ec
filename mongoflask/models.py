@@ -1,27 +1,29 @@
 from flask import url_for
 from mongoflask import db
 
-class Stop(db.Document):
-    name = db.StringField(max_length=255, required=True)
-    stop_id = db.IntField(required=True)
-    latitude = db.FloatField(required=True)
-    longitude = db.FloatField(required=True)
+class Stop(db.Model):
+    name = db.Column(db.String(255))
+    stop_id = db.Column(db.Integer, primary_key = True)
+    orientation = db.Column(db.Integer)
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
 
-    def __unicode__(self):
+    def __repr__(self):
         return self.name
 
-class Service(db.Document):
-    name = db.StringField(max_length=255, required=True)
-    stops = db.ListField(db.EmbeddedDocumentField('Stop'))
+class Route(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    destintaion_id = db.Column(db.Integer, db.ForeignKey(Stop.stop_id), index=True)
+    stops = db.relationship('Stop', backref = 'route_destination')
+    service_id = db.Column(db.Integer, db.ForeignKey('service.id'))
 
+    def __repr__(self):
+        return "Heading to " + self.destination
 
-    def get_absolute_url(self):
-        return url_for('post', kwargs={"name": self.name})
+class Service(db.Model):
+    id = db.Column(db.Integer, primary_key = True)
+    name = db.Column(db.String(255), index = True, unique = True)
+    routes = db.relationship('Route', backref = 'service_name', lazy = 'dynamic')
 
-    def __unicode__(self):
+    def __repr__(self):
         return self.name
-
-    meta = {
-        'allow_inheritance': True,
-        'indexes': ['name']
-    }

@@ -1,14 +1,13 @@
 from flask import Flask
 from flask.ext.mongoengine import MongoEngine
 from flask.ext.restful import reqparse, abort, Api, Resource
+from flask.ext.sqlalchemy import SQLAlchemy
 
 
 app = Flask(__name__)
-app.config["MONGODB_SETTINGS"] = {'DB': "bus_stops"}
-app.config["SECRET_KEY"] = "TitkosCsoda"
+app.config.from_object('config')
+db = SQLAlchemy(app)
 
-
-db = MongoEngine(app)
 
 # To avoid circular imports
 def register_views(app):
