@@ -61,3 +61,6 @@ sample.avi
 
 # ignore databases
 *.db
+
+# db change history
+db_repository
