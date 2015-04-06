@@ -13,8 +13,8 @@ class Stop(db.Model):
 
 class Route(db.Model):
     id = db.Column(db.Integer, primary_key = True)
-    destintaion_id = db.Column(db.Integer, db.ForeignKey(Stop.stop_id), index=True)
-    stops = db.relationship('Stop', backref = 'route_destination')
+    destination_id = db.Column(db.Integer, db.ForeignKey(Stop.stop_id))
+    stops = db.relationship('Stop', backref = 'route')
     service_id = db.Column(db.Integer, db.ForeignKey('service.id'))
 
     def __repr__(self):
