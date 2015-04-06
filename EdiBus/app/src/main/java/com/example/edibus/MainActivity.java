@@ -169,11 +169,7 @@ public class MainActivity extends ActionBarActivity {
             startActivity(intent);
         }
 
-        private void setupWindowAnimations() {
-            Explode explode = new Explode();
-            explode.setDuration(2000);
-            getWindow().setExitTransition(explode);
-        }   
+
     }
 }
 
