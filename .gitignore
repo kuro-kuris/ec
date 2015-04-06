@@ -58,3 +58,6 @@ venv
 
 # ignore videos
 sample.avi
+
+# ignore databases
+*.db
