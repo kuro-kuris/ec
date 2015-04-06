@@ -1,5 +1,5 @@
 import json
-
+from mongoflask import db, models
 
 with open('tfe_getStops.txt') as data_file:    
     stops = json.load(data_file)
@@ -25,4 +25,25 @@ def getServiceStops(service_number):
 				routes.append(stops)
 			return routes
 	return { 'message' : "service_number not found" }
+
+def getServiceNumbers():
+	numbers = []
+	for service in services['services']:
+		numbers.append(service['name'])
+
+
+# translate the JSON dict to SQL
+def stopJSONtoSQL(stop_dict):
+	stop = models.Stop(name = stop_dict['name'], stop_id = stop_dict['stop_id'],
+		orientation = stop_dict['orientation'], latitude = stop_dict['latitude'],
+		longitude = stop_dict['longitude']
+	)
+
+
+
+service_numbers = getServiceNumbers()
+for service_number in service_numbers:
+	service = models.Service(name = service_number)
+	stops = getServiceStops(service_number)
+
 
