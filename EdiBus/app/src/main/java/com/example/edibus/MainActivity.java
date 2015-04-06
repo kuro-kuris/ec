@@ -2,6 +2,7 @@ package com.example.edibus;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,6 +10,7 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.transition.Explode;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -57,7 +59,6 @@ public class MainActivity extends ActionBarActivity {
         // turn on indeterminate progress
         progressButton.setIndeterminateProgressMode(true);
 
-        //test
 
 
     }
@@ -153,12 +154,26 @@ public class MainActivity extends ActionBarActivity {
                 responseText.setText(result);
                 //trigger success butten
                 progressButton.setProgress(100);
+                //starts new activity sending the data received from server to it
+                startNewActivity(result);
             }
             else {
                 //trigger failiure button
                 progressButton.setProgress(-1);
             }
         }
+
+        private void startNewActivity(String result) {
+            Intent intent = new Intent(MainActivity.this,NextStopsAcitivity.class);
+            intent.putExtra("data","hello");
+            startActivity(intent);
+        }
+
+        private void setupWindowAnimations() {
+            Explode explode = new Explode();
+            explode.setDuration(2000);
+            getWindow().setExitTransition(explode);
+        }   
     }
 }
 
