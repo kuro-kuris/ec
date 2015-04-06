@@ -1,6 +1,6 @@
 flask
 flask-script
 WTForms
-flask_mongoengine
-flask-sqlalchmey
-migrate-sqlalchemy
+flask-migrate
+flask-sqlalchemy
+flask-restful

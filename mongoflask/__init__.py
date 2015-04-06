@@ -1,12 +1,12 @@
 from flask import Flask
-from flask.ext.mongoengine import MongoEngine
 from flask.ext.restful import reqparse, abort, Api, Resource
 from flask.ext.sqlalchemy import SQLAlchemy
-
+from flask.ext.migrate import Migrate
 
 app = Flask(__name__)
 app.config.from_object('config')
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 
 # To avoid circular imports
