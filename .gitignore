@@ -64,3 +64,6 @@ sample.avi
 
 # db change history
 db_repository
+
+# locked files
+*~
