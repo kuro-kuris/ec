@@ -28,6 +28,8 @@
         app:cpb_textError="Error"
         app:cpb_textIdle="Upload"
         app:cpb_cornerRadius="48dp"
+        app:cpb_selectorIdle="@drawable/button_idle_state_selector"
+        app:cpb_colorIndicator="@color/my_red"
         android:onClick="onMainClick"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
