@@ -12,7 +12,7 @@ To run the server run $ python manage.py runserver to play around with the datab
 
 Initialise a virtualenvironment using the virtualenv command.
 ```bash
-virtualenv --distribute --python=/usr/bin/python2.7 foobar
+virtualenv --distribute --python=/usr/bin/python2.7 edibus
 ```
 
 Activate virutalenv: 
