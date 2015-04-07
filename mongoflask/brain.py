@@ -1,16 +1,20 @@
 import json
-from mongoflask import db, models
 
-with open('tfe_getStops.txt') as data_file:    
+with open('tfe_api/examples/tfe_getStops.txt') as data_file:    
     stops = json.load(data_file)
 
-with open('tfe_serviceUpdates.txt') as data_file:    
+with open('tfe_api/examples/tfe_serviceUpdates.txt') as data_file:    
     services = json.load(data_file)
+
+# create a dict with the key value pairs from wanted keys
+def sub_dict(bigdict, wanted_keys):
+	return {x: bigdict[x] for x in wanted_keys}
 
 def getStop(stop_id):
 	for stop in stops['stops']:
 		if stop_id == stop['stop_id']:
-			return stop
+			wanted_keys = ['name', 'stop_id', 'orientation', 'latitude', 'longitude', 'destinations']
+			return sub_dict(stop, wanted_keys)
 	return { 'message' : "stop_id not found." }
 
 def getServiceStops(service_number):
@@ -39,11 +43,5 @@ def stopJSONtoSQL(stop_dict):
 		longitude = stop_dict['longitude']
 	)
 
-
-
-service_numbers = getServiceNumbers()
-for service_number in service_numbers:
-	service = models.Service(name = service_number)
-	stops = getServiceStops(service_number)
 
 
