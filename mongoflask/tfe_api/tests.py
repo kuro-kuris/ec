@@ -10,7 +10,7 @@ class tfe_apiTestCase(unittest.TestCase):
 		r = getStops()
 		assert r.status_code == 200
 
-	def test_serviceUpdates(self):
+	def test_getServices(self):
 		r = serviceUpdates()
 		assert r.status_code == 200
 
