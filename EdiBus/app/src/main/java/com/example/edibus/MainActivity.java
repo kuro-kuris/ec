@@ -31,6 +31,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -54,6 +57,8 @@ public class MainActivity extends ActionBarActivity implements
     CircularProgressButton progressButton;
     //editable bus number
     EditText busNumberEdit;
+    //Text view displaying N for night busses based on time of day
+    TextView nText;
     //location tag
     private static final String TAG = "LocationActivity";
     //location refresh intervals (ms)
@@ -87,11 +92,39 @@ public class MainActivity extends ActionBarActivity implements
         busNumberEdit.setText(getLastUsedBusNumber());
         // turn on indeterminate progress
         progressButton.setIndeterminateProgressMode(true);
+        // set Text view for night busses
+        nText = (TextView) findViewById(R.id.nTextView);
+        setNForNightBusses();
+
         // create location listener
         createLocationRequest();
         // initialise fused location api
         createGoogleApiClient();
 
+    }
+    //leave N for night buses or disable it based on whether it's between 24 and 4:30 am
+    private void setNForNightBusses() {
+        try {
+            Calendar c = Calendar.getInstance();
+            Date now = c.getTime();
+
+            String st1 = "00:00:00";
+            Date midnight = new SimpleDateFormat("HH:mm:ss").parse(st1);
+            Calendar c1 = Calendar.getInstance();
+            c1.setTime(midnight);
+
+            String st2 = "04:30:00";
+            Date four = new SimpleDateFormat("HH:mm:ss").parse(st2);
+            Calendar c2 = Calendar.getInstance();
+            c2.setTime(four);
+            //if not night busses
+            if (!(now.after(c1.getTime()) && now.before(c2.getTime()))) {
+                nText.setText("");
+            }
+            //else we leave the N there
+        }catch(ParseException e) {
+            e.printStackTrace();
+        }
     }
 
     protected synchronized void createGoogleApiClient() {
@@ -119,8 +152,6 @@ public class MainActivity extends ActionBarActivity implements
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
     public void onMainClick(View view) {
-        Utils.displayPromptForEnablingInternet(this);
-
         //store current bus number for later use
         storeBusNumber();
         //if we displayed error before
@@ -231,7 +262,7 @@ public class MainActivity extends ActionBarActivity implements
                 //trigger success button
                 progressButton.setProgress(100);
                 //starts new activity sending the data received from server to it
-                //startNewActivity(result);
+                startNewActivity(result);
             }
             else {
                 //trigger failure button
@@ -241,7 +272,11 @@ public class MainActivity extends ActionBarActivity implements
 
         private void startNewActivity(String result) {
             Intent intent = new Intent(MainActivity.this,NextStopsAcitivity.class);
-            intent.putExtra("data","hello");
+            //sends bus number from edittext to be displayed in action bar of next activity
+            intent.putExtra("busNumber",busNumberEdit.getText().toString());
+            intent.putExtra("stop1","stop1");
+            intent.putExtra("stop1","stop1");
+            intent.putExtra("stop1","stop1");
             startActivity(intent);
             //transition to use between these two activities
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

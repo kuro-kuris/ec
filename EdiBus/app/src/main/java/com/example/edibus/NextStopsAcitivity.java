@@ -1,5 +1,6 @@
 package com.example.edibus;
 
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -10,10 +11,18 @@ import android.widget.Toast;
 
 public class NextStopsAcitivity extends ActionBarActivity {
 
+    String busNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next_stops);
+        //used to get all extras we sent from calling Activity
+        Intent intent = getIntent();
+        busNumber = intent.getStringExtra("busNumber");
+
+        setTitle("Bus number : " + busNumber);
+
     }
 
 
