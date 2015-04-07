@@ -59,6 +59,8 @@ public class MainActivity extends ActionBarActivity implements
     //location refresh intervals (ms)
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
+    //location accuracy threshold (m)
+    private static final long ACCURACY_THRESH = 25;
     //location requesters
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -141,7 +143,8 @@ public class MainActivity extends ActionBarActivity implements
     private void updateLocation() {
         Log.d(TAG, "Updating location");
         // check that fused location has some value
-        if (null != mCurrentLocation) {
+        // and that the accuracy of the location is within threshold
+        if ((null != mCurrentLocation) && (mCurrentLocation.getAccuracy() <= ACCURACY_THRESH)){
             String lat = String.valueOf(mCurrentLocation.getLatitude());
             String lng = String.valueOf(mCurrentLocation.getLongitude());
             float bearing;
