@@ -73,6 +73,8 @@ public class MainActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //change action bar text here, not in manifest as that would change app name as well
+        setTitle(R.string.choose_bus);
         //don't automatically focus edittext
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //textview for output from server
