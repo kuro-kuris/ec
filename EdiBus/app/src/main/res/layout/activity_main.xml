@@ -40,6 +40,7 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:inputType="number"
+        android:maxLength="2"
         android:ems="10"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
@@ -49,5 +50,17 @@
         android:background="@drawable/edit_text_box"
         android:gravity="center"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="N"
+        android:id="@+id/nTextView"
+        android:paddingRight="16dp"
+        android:textSize="70dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/circularProgressButton"
+        android:layout_toStartOf="@+id/circularProgressButton" />
 
 </RelativeLayout>

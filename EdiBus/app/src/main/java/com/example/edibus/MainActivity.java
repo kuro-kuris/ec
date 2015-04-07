@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -12,12 +13,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -34,6 +32,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -57,23 +58,29 @@ public class MainActivity extends ActionBarActivity implements
     CircularProgressButton progressButton;
     //editable bus number
     EditText busNumberEdit;
+    //Text view displaying N for night busses based on time of day
+    TextView nText;
     //location tag
     private static final String TAG = "LocationActivity";
     //location refresh intervals (ms)
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
+    //location accuracy threshold (m)
+    private static final long ACCURACY_THRESH = 25;
     //location requesters
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
     //last known location, time, and bearing
     Location mCurrentLocation;
     String mLastUpdateTime;
-    float mLastBearing = 0;
+    float mLastBearing = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //change action bar text here, not in manifest as that would change app name as well
+        setTitle(R.string.choose_bus);
         //don't automatically focus edittext
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //textview for output from server
@@ -86,11 +93,38 @@ public class MainActivity extends ActionBarActivity implements
         busNumberEdit.setText(getLastUsedBusNumber());
         // turn on indeterminate progress
         progressButton.setIndeterminateProgressMode(true);
+        // set Text view for night busses
+        nText = (TextView) findViewById(R.id.nTextView);
+        setNForNightBusses();
+
+        if (!isGPSEnabled())
+            Utils.displayPromptForEnablingGPS(this);
+
         // create location listener
         createLocationRequest();
         // initialise fused location api
         createGoogleApiClient();
 
+    }
+
+    //leave N for night buses or disable it based on whether it's between 24 and 4:30 am
+    private void setNForNightBusses() {
+        Calendar cal = Calendar.getInstance();
+        // set calendar to TODAY 04:30:00.000
+        cal.set(Calendar.HOUR_OF_DAY, 4);
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date fourAm = cal.getTime();
+        //current time
+        Calendar c = Calendar.getInstance();
+        Date now = c.getTime();
+
+        //if it's more than four am disable the N
+        if (now.after(fourAm)) {
+            nText.setText("");
+
+        }
     }
 
     protected synchronized void createGoogleApiClient() {
@@ -117,14 +151,23 @@ public class MainActivity extends ActionBarActivity implements
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    //check whether GPS is enabled
+    private boolean isGPSEnabled() {
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        return manager.isProviderEnabled( LocationManager.GPS_PROVIDER);
+    }
     public void onMainClick(View view) {
         //store current bus number for later use
         storeBusNumber();
+        //if we displayed error before
+        if (progressButton.getProgress() == -1 && !isNetworkAvailable()) {
+           Utils.displayPromptForEnablingInternet(this);
+        }
+
         //create a new asynctask connecting to the server
         RequestTask task = new RequestTask();
         task.execute("http://178.62.4.227/authenticate/1247438");
-        //refresh last known coordinates and heading
-        updateLocation();
     }
     //stores bus number into shared preferences
     private void storeBusNumber() {
@@ -137,7 +180,8 @@ public class MainActivity extends ActionBarActivity implements
     private void updateLocation() {
         Log.d(TAG, "Updating location");
         // check that fused location has some value
-        if (null != mCurrentLocation) {
+        // and that the accuracy of the location is within threshold
+        if ((null != mCurrentLocation) && (mCurrentLocation.getAccuracy() <= ACCURACY_THRESH)){
             String lat = String.valueOf(mCurrentLocation.getLatitude());
             String lng = String.valueOf(mCurrentLocation.getLongitude());
             float bearing;
@@ -150,7 +194,7 @@ public class MainActivity extends ActionBarActivity implements
                 bearing = mLastBearing;
             }
 
-            responseText.append(
+            Log.d(TAG,
                     "At Time: " + mLastUpdateTime + "\n" +
                     "Latitude: " + lat + "\n" +
                     "Longitude: " + lng + "\n" +
@@ -170,34 +214,13 @@ public class MainActivity extends ActionBarActivity implements
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
 
     class RequestTask extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            busNumberEdit.setEnabled(false);
             //starts spinning the button
             progressButton.setProgress(50);
         }
@@ -206,6 +229,10 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected String doInBackground(String... uri) {
             String responseString = null;
+            //do nothing until bearing gets updated
+            while (mLastBearing == -1) {
+
+            }
             if (isNetworkAvailable()) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response;
@@ -254,8 +281,14 @@ public class MainActivity extends ActionBarActivity implements
 
         private void startNewActivity(String result) {
             Intent intent = new Intent(MainActivity.this,NextStopsAcitivity.class);
-            intent.putExtra("data","hello");
+            //sends bus number from edittext to be displayed in action bar of next activity
+            intent.putExtra("busNumber",busNumberEdit.getText().toString());
+            intent.putExtra("stop1","stop1");
+            intent.putExtra("stop1","stop1");
+            intent.putExtra("stop1","stop1");
             startActivity(intent);
+            //transition to use between these two activities
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 
@@ -277,7 +310,9 @@ public class MainActivity extends ActionBarActivity implements
         //update the last known location & timestamp when the location is changed
         Log.d(TAG, "Location changed");
         mCurrentLocation = location;
+
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        updateLocation();
     }
 
     @Override

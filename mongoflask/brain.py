@@ -1,8 +1,10 @@
 import json
 import sys
 
-with open('tfe_api/examples/tfe_getStops.txt') as data_file:    
+
+with open('mongoflask/tfe_api/examples/tfe_getStops.txt') as data_file:    
     stops = json.load(data_file)
+
 
 with open('tfe_api/examples/tfe_getServices.txt') as data_file:    
     services = json.load(data_file)
