@@ -20,12 +20,10 @@ class Utils {
         final AlertDialogWrapper.Builder builder =
                 new AlertDialogWrapper.Builder(activity);
         final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
-        final String message = "Enable either GPS or any other location"
-                + " service to find current location.  Click OK to go to"
-                + " location services settings to let you do so.";
+        final String message = "Please enable GPS in high accuracy mode";
 
         builder.setMessage(message)
-                .setPositiveButton("OK",
+                .setPositiveButton("Settings",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface d, int id) {
                                 activity.startActivity(new Intent(action));

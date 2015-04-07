@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.location.Location;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
@@ -96,6 +97,9 @@ public class MainActivity extends ActionBarActivity implements
         nText = (TextView) findViewById(R.id.nTextView);
         setNForNightBusses();
 
+        if (!isGPSEnabled())
+            Utils.displayPromptForEnablingGPS(this);
+
         // create location listener
         createLocationRequest();
         // initialise fused location api
@@ -146,6 +150,12 @@ public class MainActivity extends ActionBarActivity implements
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    //check whether GPS is enabled
+    private boolean isGPSEnabled() {
+        final LocationManager manager = (LocationManager) getSystemService( Context.LOCATION_SERVICE );
+        return manager.isProviderEnabled( LocationManager.GPS_PROVIDER);
     }
     public void onMainClick(View view) {
         //store current bus number for later use
