@@ -168,8 +168,6 @@ public class MainActivity extends ActionBarActivity implements
         //create a new asynctask connecting to the server
         RequestTask task = new RequestTask();
         task.execute("http://178.62.4.227/authenticate/1247438");
-        //refresh last known coordinates and heading
-        updateLocation();
     }
     //stores bus number into shared preferences
     private void storeBusNumber() {
@@ -196,7 +194,7 @@ public class MainActivity extends ActionBarActivity implements
                 bearing = mLastBearing;
             }
 
-            responseText.append(
+            Log.d(TAG,
                     "At Time: " + mLastUpdateTime + "\n" +
                     "Latitude: " + lat + "\n" +
                     "Longitude: " + lng + "\n" +
@@ -314,6 +312,7 @@ public class MainActivity extends ActionBarActivity implements
         mCurrentLocation = location;
 
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
+        updateLocation();
     }
 
     @Override
