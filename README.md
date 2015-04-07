@@ -11,6 +11,10 @@ To run the server run $ python manage.py runserver to play around with the datab
 ## Step-by-step guide to run the project:
 
 Initialise a virtualenvironment using the virtualenv command.
+```bash
+virtualenv --distribute --python=/usr/bin/python2.7 foobar
+```
+
 Activate virutalenv: 
 ```bash
 . venv/bin/activate
