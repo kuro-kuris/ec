@@ -16,9 +16,9 @@ def prettify():
 
 	pretty_json_response("tfe_getStops.txt", getStops())
 
-	pretty_json_response("tfe_serviceUpdates.txt", serviceUpdates())
+	pretty_json_response("tfe_getServices.txt", getServices())
 
-	pretty_json_response("tfe_timeTable.txt", timeTable(36234964))
+	pretty_json_response("tfe_timeTable.txt", timeTable(36235736))
 
 	pretty_json_response("tfe_journeys.txt", journeys('X12'))
 

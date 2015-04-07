@@ -1,0 +1,10 @@
+#!/afs/inf.ed.ac.uk/user/s12/s1228955/Desktop/enterprise-computing/ec/foobar/bin/python2.7
+# EASY-INSTALL-ENTRY-SCRIPT: 'alembic==0.7.5.post2','console_scripts','alembic'
+__requires__ = 'alembic==0.7.5.post2'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('alembic==0.7.5.post2', 'console_scripts', 'alembic')()
+    )

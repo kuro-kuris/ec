@@ -10,6 +10,9 @@ import android.provider.Settings;
 import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 class Utils {
     public static void displayPromptForEnablingGPS(
             final Activity activity)
@@ -17,12 +20,10 @@ class Utils {
         final AlertDialogWrapper.Builder builder =
                 new AlertDialogWrapper.Builder(activity);
         final String action = Settings.ACTION_LOCATION_SOURCE_SETTINGS;
-        final String message = "Enable either GPS or any other location"
-                + " service to find current location.  Click OK to go to"
-                + " location services settings to let you do so.";
+        final String message = "Please enable GPS in high accuracy mode";
 
         builder.setMessage(message)
-                .setPositiveButton("OK",
+                .setPositiveButton("Settings",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface d, int id) {
                                 activity.startActivity(new Intent(action));
@@ -62,6 +63,21 @@ class Utils {
                             }
                         });
         builder.create().show();
+    }
+
+    public static JSONObject createLocationJSON(String service, Double lat, Double lon, Float bearing){
+        JSONObject locationJSON = new JSONObject();
+        //create a JSON object with user's service and location info
+        try {
+            locationJSON.put("service",service);
+            locationJSON.put("latitude",lat);
+            locationJSON.put("longitude",lon);
+            locationJSON.put("bearing",bearing);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return locationJSON;
     }
 
 }

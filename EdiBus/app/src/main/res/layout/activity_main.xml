@@ -12,12 +12,6 @@
     android:onClick="unFocusOnClick"
     android:focusable="true">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:id="@+id/responseText"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
     <com.dd.CircularProgressButton
         android:id="@+id/circularProgressButton"
         android:layout_width="196dp"
@@ -31,9 +25,9 @@
         app:cpb_selectorIdle="@drawable/button_idle_state_selector"
         app:cpb_colorIndicator="@color/my_red"
         android:onClick="onMainClick"
+        android:layout_marginBottom="60dp"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="44dp" />
+        android:layout_centerHorizontal="true" />
 
     <EditText
         android:id="@+id/busNumberEditText"
@@ -42,13 +36,40 @@
         android:inputType="number"
         android:maxLength="2"
         android:ems="10"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="50"
         android:textSize="160dp"
         android:singleLine="true"
         android:background="@drawable/edit_text_box"
         android:gravity="center"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_alignRight="@+id/circularProgressButton"
+        android:layout_alignEnd="@+id/circularProgressButton"
+        android:layout_marginTop="60dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="N"
+        android:id="@+id/nTextView"
+        android:paddingRight="16dp"
+        android:textSize="70dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignBottom="@+id/busNumberEditText"
+        android:layout_toLeftOf="@+id/circularProgressButton"
+        android:layout_toStartOf="@+id/circularProgressButton"
+        android:layout_alignTop="@+id/busNumberEditText"
+        android:gravity="center" />
+
+    <com.rey.material.widget.CheckBox
+        android:id="@+id/expressCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Express"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="25dp"
+
+        android:layout_below="@+id/busNumberEditText"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
