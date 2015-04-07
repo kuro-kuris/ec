@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">EdiBus</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="choose_bus">Choose bus number:</string>
+    <string name="button_error">TRY AGAIN</string>
+    <string name="button_complete">SUCCESS</string>
+    <string name="button_upload">THIS IS MY BUS</string>
+    <string name="title_activity_next_stops_acitivity">NextStopsAcitivity</string>
+    <string name="action_settings">Settings</string>
+
+
+</resources>
