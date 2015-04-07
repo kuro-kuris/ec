@@ -12,12 +12,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -118,8 +115,15 @@ public class MainActivity extends ActionBarActivity implements
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
     public void onMainClick(View view) {
+        Utils.displayPromptForEnablingInternet(this);
+
         //store current bus number for later use
         storeBusNumber();
+        //if we displayed error before
+        if (progressButton.getProgress() == -1 && !isNetworkAvailable()) {
+           Utils.displayPromptForEnablingInternet(this);
+        }
+
         //create a new asynctask connecting to the server
         RequestTask task = new RequestTask();
         task.execute("http://178.62.4.227/authenticate/1247438");
@@ -222,7 +226,7 @@ public class MainActivity extends ActionBarActivity implements
                 //trigger success button
                 progressButton.setProgress(100);
                 //starts new activity sending the data received from server to it
-                startNewActivity(result);
+                //startNewActivity(result);
             }
             else {
                 //trigger failure button
