@@ -73,7 +73,7 @@ public class MainActivity extends ActionBarActivity implements
     //last known location, time, and bearing
     Location mCurrentLocation;
     String mLastUpdateTime;
-    float mLastBearing = 0;
+    float mLastBearing = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +222,7 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            busNumberEdit.setEnabled(false);
             //starts spinning the button
             progressButton.setProgress(50);
         }
@@ -230,6 +231,10 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected String doInBackground(String... uri) {
             String responseString = null;
+            //do nothing until bearing gets updated
+            while (mLastBearing == -1) {
+
+            }
             if (isNetworkAvailable()) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response;
@@ -307,6 +312,7 @@ public class MainActivity extends ActionBarActivity implements
         //update the last known location & timestamp when the location is changed
         Log.d(TAG, "Location changed");
         mCurrentLocation = location;
+
         mLastUpdateTime = DateFormat.getTimeInstance().format(new Date());
     }
 
