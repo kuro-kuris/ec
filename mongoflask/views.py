@@ -1,24 +1,14 @@
-from flask import Blueprint, request, redirect, render_template, url_for
+from flask import Blueprint, request, redirect, flash, render_template, url_for
 from flask.views import MethodView
-from mongoflask.models import Service, Stop
+from forms import InputForm
 
 services = Blueprint('services', __name__, template_folder = 'templates')
 
-class ListView(MethodView):
+class InputView(MethodView):
 
-	def get(self):
-		services = Service.objects.all()
-		return render_template('services/list.html', services = services)
-
-class DetailView(MethodView):
-
-	def get(self, name):
-		service = Service.objects.get_or_404(name = name)
-		return render_template('services/detail.html', service = service)
-
-
-
-# Register the urls
-
-services.add_url_rule('/', view_func = ListView.as_view('list'))
-services.add_url_rule('/<name>/', view_func = DetailView.as_view('detail'))
+	@services.route('/', methods= ['GET', 'POST'])
+	def my_form():
+		form = InputForm()
+		flash('bus is ="%s", longitude ="%s", latitude="%s", bearing="%s"' % 
+			(form.service_number_input.data, form.latitude.data, form.longitude.data, form.bearing.data))
+		return render_template('services/input.html', form = form)
