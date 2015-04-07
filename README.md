@@ -19,7 +19,10 @@ Install requirments from the requirements.txt
 ```bash
 pip install -r requirements.txt
 ```
-Now to run the server $ python manage.py runserver
+Now to run the server
+```bash
+python manage.py runserver
+```
 
 ## Playing around with the database
 
