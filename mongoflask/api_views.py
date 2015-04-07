@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_restful import Api, Resource, url_for, abort
+from flask_restful import Api, Resource, url_for, abort, reqparse
 from mongoflask.models import Service, Route, Stop
 from mongoflask import db
 from mongoflask.brain import *
@@ -16,7 +16,11 @@ import json
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 
-
+parser = reqparse.RequestParser()
+parser.add_argument('name', type=str)
+parser.add_argument('latitude', type=float)
+parser.add_argument('longitude', type=float)
+parser.add_argument('orientation', type=int)
 
 class BusStops(Resource):
 
@@ -38,4 +42,4 @@ class NextStops(Resource):
 # Register resources
 
 api.add_resource(BusStops, '/api/bus/<name>')
-api.add_resource(NextStops, '/api/next/<name>&<latitude>&<longitude>&<orientation>')
+api.add_resource(NextStops, '/api/next/<name>+<latitude>+<longitude>+<orientation>')
