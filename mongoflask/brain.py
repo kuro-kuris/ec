@@ -33,8 +33,7 @@ def getServiceStops(service_number):
 					stop = getStop(stop_id)
 					stop.update({'destination' : route['destination']})
 					stops.append(stop)
-				dictionary = {route['destination'] : stops}
-				routes.append(dictionary)
+				routes.append(stops)
 			return routes
 	return { 'message' : "service_number not found" }
 
