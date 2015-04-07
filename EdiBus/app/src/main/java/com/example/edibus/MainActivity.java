@@ -12,12 +12,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -62,6 +59,8 @@ public class MainActivity extends ActionBarActivity implements
     //location refresh intervals (ms)
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
+    //location accuracy threshold (m)
+    private static final long ACCURACY_THRESH = 25;
     //location requesters
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -74,6 +73,8 @@ public class MainActivity extends ActionBarActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //change action bar text here, not in manifest as that would change app name as well
+        setTitle(R.string.choose_bus);
         //don't automatically focus edittext
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //textview for output from server
@@ -118,8 +119,15 @@ public class MainActivity extends ActionBarActivity implements
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
     public void onMainClick(View view) {
+        Utils.displayPromptForEnablingInternet(this);
+
         //store current bus number for later use
         storeBusNumber();
+        //if we displayed error before
+        if (progressButton.getProgress() == -1 && !isNetworkAvailable()) {
+           Utils.displayPromptForEnablingInternet(this);
+        }
+
         //create a new asynctask connecting to the server
         RequestTask task = new RequestTask();
         task.execute("http://178.62.4.227/authenticate/1247438");
@@ -137,7 +145,8 @@ public class MainActivity extends ActionBarActivity implements
     private void updateLocation() {
         Log.d(TAG, "Updating location");
         // check that fused location has some value
-        if (null != mCurrentLocation) {
+        // and that the accuracy of the location is within threshold
+        if ((null != mCurrentLocation) && (mCurrentLocation.getAccuracy() <= ACCURACY_THRESH)){
             String lat = String.valueOf(mCurrentLocation.getLatitude());
             String lng = String.valueOf(mCurrentLocation.getLongitude());
             float bearing;
@@ -169,28 +178,6 @@ public class MainActivity extends ActionBarActivity implements
         return name;
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
     class RequestTask extends AsyncTask<String, Void, String> {
@@ -244,7 +231,7 @@ public class MainActivity extends ActionBarActivity implements
                 //trigger success button
                 progressButton.setProgress(100);
                 //starts new activity sending the data received from server to it
-                startNewActivity(result);
+                //startNewActivity(result);
             }
             else {
                 //trigger failure button
@@ -256,6 +243,8 @@ public class MainActivity extends ActionBarActivity implements
             Intent intent = new Intent(MainActivity.this,NextStopsAcitivity.class);
             intent.putExtra("data","hello");
             startActivity(intent);
+            //transition to use between these two activities
+            overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
         }
     }
 
