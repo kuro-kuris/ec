@@ -1,9 +1,10 @@
 import json
+import fileconfig
 
-with open('tfe_api/examples/tfe_getStops.txt') as data_file:    
+with open('mongoflask/tfe_api/examples/tfe_getStops.txt') as data_file:    
     stops = json.load(data_file)
 
-with open('tfe_api/examples/tfe_serviceUpdates.txt') as data_file:    
+with open('mongoflask/tfe_api/examples/tfe_serviceUpdates.txt') as data_file:    
     services = json.load(data_file)
 
 # create a dict with the key value pairs from wanted keys
