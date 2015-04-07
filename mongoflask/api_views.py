@@ -5,9 +5,6 @@ from mongoflask import db
 from mongoflask.brain import *
 import json
 
-
-
-
 # def abort_if_service_doesnt_exist(name):
 #       if len(Service.objects(name = unicode(name))) == 0:
 #           abort(404, message="Service number {} doesn't exist".format(name))
@@ -16,11 +13,8 @@ import json
 api_bp = Blueprint('api', __name__)
 api = Api(api_bp)
 
-
-
 class BusStops(Resource):
 
-	
     def get(self, name):
     	#abort_if_service_doesnt_exist(name)
     	routes = getServiceStops(unicode(name)) 

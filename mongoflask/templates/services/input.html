@@ -1,0 +1,52 @@
+  {% extends "base.html" %}
+
+  {% block content %}
+
+
+  <body onload="getLocation()">
+    <h1>Welcome to EdiBus</h1>
+    <form action="" method="post" name="input">
+        {{ form.hidden_tag() }}
+        <p>
+            Please enter your bus number:<br>
+            {{ form.service_number_input(size=80) }}<br>
+        </p>
+        <p><input type="submit" value="Sign In"></p>
+        <p id="geostatus"></p>
+    </form>
+  </body>
+
+  <script type="text/javascript">
+
+    var x = document.getElementById("geostatus");
+    var lat;
+    var lon;
+
+    function getHeading(){ 
+    if (window.DeviceOrientationEvent) {
+          window.addEventListener('deviceorientation', function(event) {
+            form.heading = event.alpha;
+            }, false);
+      }
+    }
+
+    function getLocation() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+        } else { 
+            x.innerHTML = "Geolocation is not supported by this browser.";
+        }       
+    }
+    
+    function showPosition(position) {
+        x.innerHTML = "Latitude: " + position.coords.latitude + 
+        "<br>Longitude: " + position.coords.longitude +
+        "<br>Heading: " + window.alpha; 
+        form.latitude.value = position.coords.latitude;
+        form.longitude.value = position.coords.longitude;
+    }
+
+  </script>
+
+
+{% endblock %}
