@@ -98,11 +98,12 @@ public class MainActivity extends ActionBarActivity implements
         progressButton.setIndeterminateProgressMode(true);
         // set Text view for night busses
         nText = (TextView) findViewById(R.id.nTextView);
-        setNForNightBusses();
         //checkBoxFor express busses
         expressCheckBox = ( CheckBox ) findViewById( R.id.expressCheckBox );
         //attach a listener to our checkbox
         expressCheckBox.setOnCheckedChangeListener(createCheckBoxListner());
+        //has to be called after check box is set, as it removes it for night busses
+        setNForNightBusses();
 
 
         if (!isGPSEnabled())
@@ -134,6 +135,10 @@ public class MainActivity extends ActionBarActivity implements
         if (now.after(fourAm)) {
             nText.setText("");
 
+        }else {
+            //remove checkbox as there are no express busses at night
+            expressCheckBox.setVisibility(View.GONE);
+            expressCheckBox.invalidate();
         }
     }
 
