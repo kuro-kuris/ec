@@ -102,28 +102,24 @@ public class MainActivity extends ActionBarActivity implements
         createGoogleApiClient();
 
     }
+
     //leave N for night buses or disable it based on whether it's between 24 and 4:30 am
     private void setNForNightBusses() {
-        try {
-            Calendar c = Calendar.getInstance();
-            Date now = c.getTime();
+        Calendar cal = Calendar.getInstance();
+        // set calendar to TODAY 04:30:00.000
+        cal.set(Calendar.HOUR_OF_DAY, 4);
+        cal.set(Calendar.MINUTE, 30);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        Date fourAm = cal.getTime();
+        //current time
+        Calendar c = Calendar.getInstance();
+        Date now = c.getTime();
 
-            String st1 = "00:00:00";
-            Date midnight = new SimpleDateFormat("HH:mm:ss").parse(st1);
-            Calendar c1 = Calendar.getInstance();
-            c1.setTime(midnight);
+        //if it's more than four am disable the N
+        if (now.after(fourAm)) {
+            nText.setText("");
 
-            String st2 = "04:30:00";
-            Date four = new SimpleDateFormat("HH:mm:ss").parse(st2);
-            Calendar c2 = Calendar.getInstance();
-            c2.setTime(four);
-            //if not night busses
-            if (!(now.after(c1.getTime()) && now.before(c2.getTime()))) {
-                nText.setText("");
-            }
-            //else we leave the N there
-        }catch(ParseException e) {
-            e.printStackTrace();
         }
     }
 
