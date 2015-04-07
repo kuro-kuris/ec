@@ -1,7 +1,1664 @@
 {
-    "date": 1426371379, 
+    "date": 1428596362, 
     "duration": 120, 
     "finish_stop_id": 36232896, 
-    "journeys": [], 
+    "journeys": [
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "17:24", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "17:25", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "17:26", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "17:27", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Usher Hall", 
+                    "stop_id": 36235967, 
+                    "time": "17:29", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Caledonian Hotel", 
+                    "stop_id": 36232692, 
+                    "time": "17:30", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Princes Street west end", 
+                    "stop_id": 36235968, 
+                    "time": "17:32", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Castle Street", 
+                    "stop_id": 36235973, 
+                    "time": "17:34", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "outside Jenners", 
+                    "stop_id": 36253279, 
+                    "time": "17:36", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Waverley Station", 
+                    "stop_id": 36246286, 
+                    "time": "17:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leith Street", 
+                    "stop_id": 36242687, 
+                    "time": "17:39", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leopold Place", 
+                    "stop_id": 36232578, 
+                    "time": "17:43", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Brunswick Street", 
+                    "stop_id": 36232579, 
+                    "time": "17:44", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Wellington St", 
+                    "stop_id": 36232582, 
+                    "time": "17:45", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "17:46", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "17:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "17:49", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "17:50", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "17:51", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Easter Road (foot)", 
+            "service_name": "1"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "17:29", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "17:30", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "17:31", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "17:32", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "17:34", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "17:36", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "17:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "17:41", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "17:42", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "17:45", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "17:46", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "17:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "17:49", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "17:51", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "17:52", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "17:54", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "17:55", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "17:56", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "17:57", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "17:58", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "17:59", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "17:40", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "17:41", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "17:42", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "17:43", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Usher Hall", 
+                    "stop_id": 36235967, 
+                    "time": "17:45", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Caledonian Hotel", 
+                    "stop_id": 36232692, 
+                    "time": "17:46", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Princes Street west end", 
+                    "stop_id": 36235968, 
+                    "time": "17:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Castle Street", 
+                    "stop_id": 36235973, 
+                    "time": "17:50", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "outside Jenners", 
+                    "stop_id": 36253279, 
+                    "time": "17:52", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Waverley Station", 
+                    "stop_id": 36246286, 
+                    "time": "17:54", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leith Street", 
+                    "stop_id": 36242687, 
+                    "time": "17:55", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leopold Place", 
+                    "stop_id": 36232578, 
+                    "time": "17:59", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Brunswick Street", 
+                    "stop_id": 36232579, 
+                    "time": "18:00", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Wellington St", 
+                    "stop_id": 36232582, 
+                    "time": "18:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:02", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:04", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:05", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:06", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:07", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Easter Road (foot)", 
+            "service_name": "1"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "17:41", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "17:42", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "17:43", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "17:44", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "17:46", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "17:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "17:50", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "17:53", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "17:54", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "17:57", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "17:58", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:00", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:03", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:04", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:06", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:07", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:08", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:09", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:10", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:11", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "17:52", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "17:53", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "17:54", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "17:55", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "17:57", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "17:59", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "18:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "18:04", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "18:05", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "18:08", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "18:09", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:11", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:12", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:14", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:15", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:17", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:18", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:19", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:20", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:21", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:22", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "17:55", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "17:56", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "17:57", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "17:58", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Usher Hall", 
+                    "stop_id": 36235967, 
+                    "time": "18:00", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Caledonian Hotel", 
+                    "stop_id": 36232692, 
+                    "time": "18:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Princes Street west end", 
+                    "stop_id": 36235968, 
+                    "time": "18:03", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Castle Street", 
+                    "stop_id": 36235973, 
+                    "time": "18:05", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "outside Jenners", 
+                    "stop_id": 36253279, 
+                    "time": "18:07", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Waverley Station", 
+                    "stop_id": 36246286, 
+                    "time": "18:09", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leith Street", 
+                    "stop_id": 36242687, 
+                    "time": "18:10", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leopold Place", 
+                    "stop_id": 36232578, 
+                    "time": "18:14", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Brunswick Street", 
+                    "stop_id": 36232579, 
+                    "time": "18:15", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Wellington St", 
+                    "stop_id": 36232582, 
+                    "time": "18:16", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:17", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:19", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:20", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:21", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:22", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Easter Road (foot)", 
+            "service_name": "1"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:04", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:05", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:06", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:07", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "18:09", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "18:11", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "18:13", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "18:16", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "18:17", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "18:20", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "18:21", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:23", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:24", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:26", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:27", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:28", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:29", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:30", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:31", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:32", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:33", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:10", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:11", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:12", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:13", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Usher Hall", 
+                    "stop_id": 36235967, 
+                    "time": "18:15", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Caledonian Hotel", 
+                    "stop_id": 36232692, 
+                    "time": "18:16", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Princes Street west end", 
+                    "stop_id": 36235968, 
+                    "time": "18:18", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Castle Street", 
+                    "stop_id": 36235973, 
+                    "time": "18:20", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "outside Jenners", 
+                    "stop_id": 36253279, 
+                    "time": "18:22", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Waverley Station", 
+                    "stop_id": 36246286, 
+                    "time": "18:24", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leith Street", 
+                    "stop_id": 36242687, 
+                    "time": "18:25", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leopold Place", 
+                    "stop_id": 36232578, 
+                    "time": "18:29", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Brunswick Street", 
+                    "stop_id": 36232579, 
+                    "time": "18:30", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Wellington St", 
+                    "stop_id": 36232582, 
+                    "time": "18:30", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:32", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:33", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:34", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:34", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:35", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Easter Road (foot)", 
+            "service_name": "1"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:16", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:17", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:18", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:19", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "18:21", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "18:23", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "18:25", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "18:28", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "18:29", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "18:31", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "18:33", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:34", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:36", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:37", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:39", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:40", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:41", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:42", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:42", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:43", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:25", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:26", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:27", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:28", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Usher Hall", 
+                    "stop_id": 36235967, 
+                    "time": "18:29", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Caledonian Hotel", 
+                    "stop_id": 36232692, 
+                    "time": "18:31", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Princes Street west end", 
+                    "stop_id": 36235968, 
+                    "time": "18:33", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Castle Street", 
+                    "stop_id": 36235973, 
+                    "time": "18:34", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "outside Jenners", 
+                    "stop_id": 36253279, 
+                    "time": "18:37", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Waverley Station", 
+                    "stop_id": 36246286, 
+                    "time": "18:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leith Street", 
+                    "stop_id": 36242687, 
+                    "time": "18:39", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Leopold Place", 
+                    "stop_id": 36232578, 
+                    "time": "18:43", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Brunswick Street", 
+                    "stop_id": 36232579, 
+                    "time": "18:44", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Wellington St", 
+                    "stop_id": 36232582, 
+                    "time": "18:44", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:46", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:47", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:49", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Easter Road (foot)", 
+            "service_name": "1"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:27", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:28", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:29", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:30", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "18:31", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "18:33", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "18:35", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "18:37", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "18:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "18:40", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "18:42", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:43", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:45", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:46", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:47", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:49", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "18:50", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "18:51", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "18:51", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "18:52", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:37", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:39", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:40", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "18:41", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "18:43", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "18:45", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "18:47", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "18:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "18:50", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "18:52", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:53", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:55", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:56", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:57", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:58", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:59", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "19:00", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "19:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "19:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "19:02", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }, 
+        {
+            "departures": [
+                {
+                    "name": "Viewforth", 
+                    "stop_id": 36236495, 
+                    "time": "18:37", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Grove Street", 
+                    "stop_id": 36236487, 
+                    "time": "18:38", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Port Hamilton", 
+                    "stop_id": 36246742, 
+                    "time": "18:39", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Semple Street", 
+                    "stop_id": 36236392, 
+                    "time": "18:40", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Fountainbridge", 
+                    "stop_id": 36232562, 
+                    "time": "18:41", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "High Riggs", 
+                    "stop_id": 36236459, 
+                    "time": "18:43", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Keir Street", 
+                    "stop_id": 36236463, 
+                    "time": "18:45", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Forrest Road", 
+                    "stop_id": 36236456, 
+                    "time": "18:47", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Sheriff Court", 
+                    "stop_id": 36247262, 
+                    "time": "18:48", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "South Bridge", 
+                    "stop_id": 36243274, 
+                    "time": "18:50", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Chalmers Close", 
+                    "stop_id": 36238496, 
+                    "time": "18:52", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Old Assembly Close", 
+                    "stop_id": 36236767, 
+                    "time": "18:53", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Huntly House Museum", 
+                    "stop_id": 36236765, 
+                    "time": "18:55", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Scottish Parliament", 
+                    "stop_id": 36236764, 
+                    "time": "18:56", 
+                    "timing_point": true
+                }, 
+                {
+                    "name": "Abbeyhill Crescent", 
+                    "stop_id": 36236758, 
+                    "time": "18:57", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Abbeymount", 
+                    "stop_id": 36237652, 
+                    "time": "18:58", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Montgomery St", 
+                    "stop_id": 36232892, 
+                    "time": "18:59", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Brunswick Road", 
+                    "stop_id": 36238387, 
+                    "time": "19:00", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Albert Street", 
+                    "stop_id": 36232894, 
+                    "time": "19:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "Dalmeny Street", 
+                    "stop_id": 36232895, 
+                    "time": "19:01", 
+                    "timing_point": false
+                }, 
+                {
+                    "name": "S Clair Ave", 
+                    "stop_id": 36232896, 
+                    "time": "19:02", 
+                    "timing_point": false
+                }
+            ], 
+            "destination": "Ocean Terminal", 
+            "service_name": "35"
+        }
+    ], 
     "start_stop_id": 36236495
 }

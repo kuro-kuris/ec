@@ -1,34 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-GB">
+
   <head>
-    <meta charset="utf-8">
-    <title>EdiBus</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-    <style>.content {padding-top: 80px;}</style>
+      <link rel="stylesheet" type="text/css" href="style.css">
+      <meta charset="utf-8">
+      <meta name="description" 
+            content="Accessible bus stop tracker">
+      <meta name="author" content="Patrick Cartlidge, Roosa Tammela, Chris Swart">
+      <meta name="viewport" value="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0">
+      <title>ediBus - Please Enter Bus Number</title>
   </head>
 
   <body>
-
-    {%- block topbar -%}
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <h2>
-              <a href="/" class="brand">EdiBus</a> <small>Buses made accessible</small>
-          </h2>
-        </div>
-        <div class="navbar-collapse">
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
-    {%- endblock -%}
-
-    <div class="container">
-      <div class="content">
-        {% block page_header %}{% endblock %}
-        {% block content %}{% endblock %}
-      </div>
-    </div>
-    {% block js_footer %}{% endblock %}
+    <div>Microblog: <a href="/index">Home</a></div>
+    <hr>
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul>
+        {% for message in messages %}
+            <li>{{ message }} </li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
   </body>
+  
 </html>

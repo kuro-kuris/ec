@@ -1,6 +1,8 @@
 flask
 flask-script
 WTForms
+flask-wtf
 flask-migrate
 flask-sqlalchemy
 flask-restful
+

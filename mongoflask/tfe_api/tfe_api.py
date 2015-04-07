@@ -20,7 +20,7 @@ def getStops():
 
 	return response
 
-def serviceUpdates():
+def getServices():
 
 	url = general_url + 'services'
 
