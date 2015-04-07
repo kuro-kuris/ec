@@ -249,6 +249,7 @@ public class MainActivity extends ActionBarActivity implements
             //disable editable elements on the screen
             busNumberEdit.setEnabled(false);
             expressCheckBox.setEnabled(false);
+            nText.setEnabled(false);
             //starts spinning the button
             progressButton.setProgress(50);
         }
