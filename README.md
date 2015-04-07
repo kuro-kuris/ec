@@ -11,15 +11,22 @@ To run the server run $ python manage.py runserver to play around with the datab
 ## Step-by-step guide to run the project:
 
 Initialise a virtualenvironment using the virtualenv command.
-Activate virutalenv: $ . venv/bin/activate
-Install requirments from the requirements.txt $ pip install -r requirements.txt
+Activate virutalenv: 
+```bash
+. venv/bin/activate
+```
+Install requirments from the requirements.txt 
+```bash
+pip install -r requirements.txt
+```
 Now to run the server $ python manage.py runserver
 
 ## Playing around with the database
 
-To play around with the database you can run $ python manage.py shell
-
-Within the shell import the models and you can call Service.objects.get() or do whatever you want with the db.
+To play around with the database you can run:
+```bash
+python manage.py shell
+```
 
 ## Testing the API
 
