@@ -16,8 +16,10 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.dd.CircularProgressButton;
 
@@ -45,6 +47,7 @@ import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.rey.material.widget.CheckBox;
 
 
 public class MainActivity extends ActionBarActivity implements
@@ -52,14 +55,15 @@ public class MainActivity extends ActionBarActivity implements
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener{
 
-    //response from server
-    TextView responseText;
+
     //button with progress on click
     CircularProgressButton progressButton;
     //editable bus number
     EditText busNumberEdit;
     //Text view displaying N for night busses based on time of day
     TextView nText;
+    //checkBox for setting express bus
+    CheckBox expressCheckBox;
     //location tag
     private static final String TAG = "LocationActivity";
     //location refresh intervals (ms)
@@ -83,8 +87,7 @@ public class MainActivity extends ActionBarActivity implements
         setTitle(R.string.choose_bus);
         //don't automatically focus edittext
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        //textview for output from server
-        responseText = (TextView) findViewById(R.id.responseText);
+
         //button with progress upon click
         progressButton = (CircularProgressButton) findViewById(R.id.circularProgressButton);
         //editable bus number
@@ -96,6 +99,11 @@ public class MainActivity extends ActionBarActivity implements
         // set Text view for night busses
         nText = (TextView) findViewById(R.id.nTextView);
         setNForNightBusses();
+        //checkBoxFor express busses
+        expressCheckBox = ( CheckBox ) findViewById( R.id.expressCheckBox );
+        //attach a listener to our checkbox
+        expressCheckBox.setOnCheckedChangeListener(createCheckBoxListner());
+
 
         if (!isGPSEnabled())
             Utils.displayPromptForEnablingGPS(this);
@@ -104,6 +112,8 @@ public class MainActivity extends ActionBarActivity implements
         createLocationRequest();
         // initialise fused location api
         createGoogleApiClient();
+
+
 
     }
 
@@ -125,6 +135,21 @@ public class MainActivity extends ActionBarActivity implements
             nText.setText("");
 
         }
+    }
+
+    //Manual listener for express checkbox, app crashes if done through XML
+    private CompoundButton.OnCheckedChangeListener createCheckBoxListner() {
+        CompoundButton.OnCheckedChangeListener listener = new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                //set E in front of busEditText
+                if (isChecked)
+                    nText.setText("E");
+                else
+                    nText.setText("");
+            }
+        };
+        return listener;
     }
 
     protected synchronized void createGoogleApiClient() {
@@ -177,6 +202,7 @@ public class MainActivity extends ActionBarActivity implements
         editor.apply();
     }
 
+
     private void updateLocation() {
         Log.d(TAG, "Updating location");
         // check that fused location has some value
@@ -196,11 +222,11 @@ public class MainActivity extends ActionBarActivity implements
 
             Log.d(TAG,
                     "At Time: " + mLastUpdateTime + "\n" +
-                    "Latitude: " + lat + "\n" +
-                    "Longitude: " + lng + "\n" +
-                    "Bearing: " + bearing + "\n" +
-                    "Accuracy: " + mCurrentLocation.getAccuracy() + "\n" +
-                    "Provider: " + mCurrentLocation.getProvider());
+                            "Latitude: " + lat + "\n" +
+                            "Longitude: " + lng + "\n" +
+                            "Bearing: " + bearing + "\n" +
+                            "Accuracy: " + mCurrentLocation.getAccuracy() + "\n" +
+                            "Provider: " + mCurrentLocation.getProvider());
         } else {
             Log.d(TAG, "Location not found");
         }
@@ -220,7 +246,9 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            //disable editable elements on the screen
             busNumberEdit.setEnabled(false);
+            expressCheckBox.setEnabled(false);
             //starts spinning the button
             progressButton.setProgress(50);
         }
@@ -266,8 +294,6 @@ public class MainActivity extends ActionBarActivity implements
             super.onPostExecute(result);
 
             if (result!=null) {
-                //populate textView with result from server
-                responseText.setText(result);
                 //trigger success button
                 progressButton.setProgress(100);
                 //starts new activity sending the data received from server to it
