@@ -20,7 +20,7 @@ def getStop(stop_id):
 		if stop_id == stop['stop_id']:
 			wanted_keys = ['name', 'stop_id', 'orientation', 'latitude', 'longitude']
 			return sub_dict(stop, wanted_keys)
-	return { 'message' : "stop_id not found." }
+	return { 'message' : "stop_id not found: " + stop_id }
 
 def getServiceStops(service_number):
 	for service in services['services']:
@@ -38,20 +38,11 @@ def getServiceStops(service_number):
 	return { 'message' : "service_number not found" }
 
 def getDirectedServiceStops(service_number, destination):
-	for service in services['services']:
-		if unicode(service_number) == service['name']:
-			for route in service['routes']:
-				if unicode('destination') == route['destination']:
-					stop_ids = route['stops']
-					stop_list = []
-					for stop_id in stop_ids:
-						stop = getStop(stop_id)
-						stop.update({'destination' : route['destination']})
-						stop_list.append(stop)
-					return stop_list
-				else:
-					return { 'message' : "destination not found" }
-	return { 'message' : "service_number not found" }
+	stop_list = []
+	for stop in getServiceStops(service_number):
+		if destination == stop['destination']:
+			stop_list.append(stop)
+	return stop_list	
 
 
 
@@ -163,10 +154,7 @@ def getRemainingStops(stop_id, stop_list):
 	if len(stop_list) > 1:
 		for i in range(len(stop_list)):
 			if stop_id == stop_list[i]['stop_id']:
-				return stops_list[i:]
-			else:
-				return { 'message' : 'stop_id not found' }
-	else:
+				return stop_list[i:]
 		return stop_list
 
 def getNextBusStops(name, latitude, longitude, orientation):
@@ -176,7 +164,7 @@ def getNextBusStops(name, latitude, longitude, orientation):
 	# stops on the correct bus route
 	route_stops = getDirectedServiceStops(name, next_stop['destination'])
 	remaining_stops = getRemainingStops(next_stop['stop_id'], route_stops)
-	return remaining_stops
+	return {'stops' : remaining_stops}
 
 
 # translate the JSON dict to SQL
