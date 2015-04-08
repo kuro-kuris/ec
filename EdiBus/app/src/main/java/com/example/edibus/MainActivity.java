@@ -151,6 +151,7 @@ public class MainActivity extends ActionBarActivity implements
         //if it's more than four am disable the N
         if (now.after(fourAm)) {
             nText.setText("");
+            nText.setContentDescription("");
 
         }else {
             //remove checkbox as there are no express busses at night
@@ -165,10 +166,16 @@ public class MainActivity extends ActionBarActivity implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //set E in front of busEditText
-                if (isChecked)
+                if (isChecked) {
+
+
                     nText.setText("E");
-                else
+                    nText.setContentDescription("Express bus");
+                }
+                else {
                     nText.setText("");
+                    nText.setContentDescription("");
+                }
             }
         };
         return listener;
