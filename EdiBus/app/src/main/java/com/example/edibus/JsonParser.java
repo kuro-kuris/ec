@@ -64,4 +64,11 @@ public class JsonParser extends ListActivity{
         return stopList;
     }
 
+    public static class staticStopList{
+        private static List<Pair> stopList;
+
+        public static void setList(List<Pair> aStopList){ stopList = aStopList;}
+        public static List<Pair> getList() { return stopList;}
+    }
+
 }

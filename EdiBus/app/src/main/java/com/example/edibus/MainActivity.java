@@ -333,6 +333,8 @@ public class MainActivity extends ActionBarActivity implements
                 List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
                 //parse server response into list
                 parsedResponse = JsonParser.parseJson(response);
+                //transfer parsed list into static stop list
+                JsonParser.staticStopList.setList(parsedResponse);
                 for (int i = 0; i < parsedResponse.size() ; i++){
                     //print received stops into log for verification/testing
                     Location parsedStop = (Location) parsedResponse.get(i).getStopLocation();

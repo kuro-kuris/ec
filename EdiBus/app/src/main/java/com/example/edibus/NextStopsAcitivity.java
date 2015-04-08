@@ -22,6 +22,7 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,6 +75,10 @@ public class NextStopsAcitivity extends ActionBarActivity implements
         busNumber = intent.getStringExtra("busNumber");
 
         setTitle("Bus number : " + busNumber);
+
+        //retrieve static stop list
+        List<JsonParser.Pair> parsedResponse;
+        parsedResponse = JsonParser.staticStopList.getList();
 
         // create location listener
         createLocationRequest();
