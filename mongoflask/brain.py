@@ -40,7 +40,7 @@ def getServiceStops(service_number):
 def getDirectedServiceStops(service_number, destination):
 	stop_list = []
 	for stop in getServiceStops(service_number):
-		if destination == stop['destination']:
+		if unicode(destination) == stop['destination']:
 			stop_list.append(stop)
 	return stop_list	
 
