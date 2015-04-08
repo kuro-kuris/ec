@@ -15,6 +15,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.location.Geofence;
+import com.google.android.gms.location.GeofencingRequest;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
@@ -54,6 +55,7 @@ public class NextStopsAcitivity extends ActionBarActivity implements
     private static final int GEOFENCE_EXPIRATION = -1;
     //geofence transition set to trigger on exit
     private static final int GEOFENCE_TRANSITION_EXIT = 2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,12 +195,23 @@ public class NextStopsAcitivity extends ActionBarActivity implements
             .setRequestId(stopName)
             //set the region of the geofence, expiration timer, and transition type
             .setCircularRegion(stopLocation.getLatitude(),
-                               stopLocation.getLongitude(),
-                               GEOFENCE_RADIUS)
+                    stopLocation.getLongitude(),
+                    GEOFENCE_RADIUS)
             .setExpirationDuration(GEOFENCE_EXPIRATION)
             .setTransitionTypes(GEOFENCE_TRANSITION_EXIT)
             .build());
         }
         Log.d(TAG, "Built geofence objects");
+    }
+
+    private GeofencingRequest getGeofencingRequest(){
+        //build geofence watcher
+        GeofencingRequest.Builder builder = new GeofencingRequest.Builder();
+        //set initial trigger, if app activated while within first geofence radius
+        // ENTER, EXIT, or DWELL (triggers if user stops for specified duration within radius)
+        builder.setInitialTrigger(GeofencingRequest.INITIAL_TRIGGER_ENTER);
+        //add list of geofence objects
+        builder.addGeofences(mGeofenceList);
+        return builder.build();
     }
 }
