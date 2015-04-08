@@ -14,7 +14,7 @@ import java.util.List;
 public class JsonParser extends ListActivity{
 
     //JSON node names for json received from server
-    private static final String TAG_ROUTE = "Route";
+    private static final String TAG_STOPS = "stops";
     private static final String TAG_STOPNAME = "name";
     private static final String TAG_LAT = "latitude";
     private static final String TAG_LONG = "longitude";
@@ -44,7 +44,7 @@ public class JsonParser extends ListActivity{
             //create JSON object from string received from server
             JSONObject jsonObj = new JSONObject(jsonString);
             //move each stop object into the stops array
-            stops = jsonObj.getJSONArray(TAG_ROUTE);
+            stops = jsonObj.getJSONArray(TAG_STOPS);
             //loop through each stop object
             for (int i = 0; i < stops.length(); i++){
                 //retrieve a stop from the array of stops

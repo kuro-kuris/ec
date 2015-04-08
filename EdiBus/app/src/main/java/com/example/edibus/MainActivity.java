@@ -28,7 +28,9 @@ import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
@@ -70,7 +72,7 @@ public class MainActivity extends ActionBarActivity implements
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
     //location accuracy threshold (m)
-    private static final long ACCURACY_THRESH = 25;
+    private static final long ACCURACY_THRESH = 30;
     //location requesters
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -78,6 +80,8 @@ public class MainActivity extends ActionBarActivity implements
     Location mCurrentLocation;
     String mLastUpdateTime;
     float mLastBearing = -1;
+    //backend server IP address
+    private static final String API_ADDRESS = "http://178.62.140.115/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +201,13 @@ public class MainActivity extends ActionBarActivity implements
 
         //create a new asynctask connecting to the server
         RequestTask task = new RequestTask();
+        //compose url to send to server
+        //String url = composeURL();
+        //task.execute(url);
+
         task.execute("http://178.62.4.227/authenticate/1247438");
+
+        //
     }
     //stores bus number into shared preferences
     private void storeBusNumber() {
@@ -205,6 +215,21 @@ public class MainActivity extends ActionBarActivity implements
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("BusNumber", busNumberEdit.getText().toString());
         editor.apply();
+    }
+
+    //composes url for server call
+    private String composeURL() {
+        String url;
+        //compose service number from N/E prefix + number
+        String serviceNumber = nText.getText().toString() + busNumberEdit.getText().toString();
+
+        //get strings of lat, long, bearing
+        String lat = String.valueOf(mCurrentLocation.getLatitude());
+        String lon = String.valueOf(mCurrentLocation.getLongitude());
+        String bear = String.valueOf(mCurrentLocation.getBearing());
+        //append server url, servicenumber, coords, bearing
+        url = API_ADDRESS + "next/" + serviceNumber + "+" + lat + "+" + lon + "+" + bear;
+        return url;
     }
 
 
@@ -233,7 +258,7 @@ public class MainActivity extends ActionBarActivity implements
                             "Accuracy: " + mCurrentLocation.getAccuracy() + "\n" +
                             "Provider: " + mCurrentLocation.getProvider());
         } else {
-            Log.d(TAG, "Location not found");
+            Log.d(TAG, "Location not found; accuracy: "+mCurrentLocation.getAccuracy());
         }
     }
 
@@ -263,10 +288,16 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected String doInBackground(String... uri) {
             String responseString = null;
+            String updatedURL;
             //do nothing until bearing gets updated
             while (mLastBearing == -1) {
 
             }
+
+            //once bearing is updated, refresh URL to include current bearing
+            updatedURL = composeURL();
+            Log.d(TAG, "Bearing found, sending request " + updatedURL);
+            /*
             if (isNetworkAvailable()) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response;
@@ -289,7 +320,21 @@ public class MainActivity extends ActionBarActivity implements
                     e.printStackTrace();
                 }
             }
-            return responseString;
+            */
+            String response = "";
+            if (isNetworkAvailable()){
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet request = new HttpGet(updatedURL);
+                ResponseHandler<String> handler = new BasicResponseHandler();
+
+                try {
+                    response = httpclient.execute(request, handler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "Received: "+response);
+            }
+            return response;
         }
 
 
