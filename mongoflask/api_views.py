@@ -1,7 +1,5 @@
 from flask import Blueprint
 from flask_restful import Api, Resource, url_for, abort, reqparse
-from mongoflask.models import Service, Route, Stop
-from mongoflask import db
 from mongoflask.brain import *
 import json
 
