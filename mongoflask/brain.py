@@ -2,7 +2,7 @@
 import json
 import sys
 import math
-from math import radians, cos, sin, asin, sqrt, atan, degrees
+from math import radians, cos, sin, asin, sqrt, atan2, degrees
 
 with open('tfe_api/examples/tfe_getStops.txt') as data_file:    
 	stops = json.load(data_file)
@@ -33,9 +33,35 @@ def getServiceStops(service_number):
 					stop = getStop(stop_id)
 					stop.update({'destination' : route['destination']})
 					stop_list.append(stop)
-				routes.append(stop_list)
+				routes = routes + (stop_list)
 			return routes
 	return { 'message' : "service_number not found" }
+
+def getDirectedServiceStops(service_number, destination):
+	for service in services['services']:
+		if unicode(service_number) == service['name']:
+			for route in service['routes']:
+				if unicode('destination') == route['destination']:
+					stop_ids = route['stops']
+					stop_list = []
+					for stop_id in stop_ids:
+						stop = getStop(stop_id)
+						stop.update({'destination' : route['destination']})
+						stop_list.append(stop)
+					return stop_list
+				else:
+					return { 'message' : "destination not found" }
+	return { 'message' : "service_number not found" }
+
+
+
+def getServiceDestinations(name):
+	for service in services['services']:
+		if unicode(name) == service['name']:
+			destinations = []
+			for route in service['routes']:
+				destinations.append(route['destination'])
+			return destination
 
 def getServiceNumbers():
 	numbers = []
@@ -115,24 +141,39 @@ def calculate_initial_compass_bearing(pointA, pointB):
 # orientation is between 0 and 359 degrees where 0 and 359 degrees represent North
 def getClosestStop(lat, lon, orientation, stops_list):
 	our_position = (lat, lon)
-	stop_candidates = []
-	for stop in stops_list:
-		if similarOrientation(orientation, stop['orientation'], 90):
-			stop_candidates.append(stop)
-	stops_in_correct_direction = []
-	for stop_candidate in stop_candidates:
+	stops_in_correct_directio
+n = []
+	for stop_candidate in stops_list:
 		stop_position = (stop['latitude'], stop['longitude'])
 		stop_bearing = calculate_initial_compass_bearing(our_position, stop_position)
-		if similarOrientation(stop['orientation'], stop_bearing, 90):
+		if similarOrientation(orientation, stop_bearing, 75):
 			stops_in_correct_direction.append(stop_candidate)
 	# python maximum float value        
 	minimum_distance = sys.float_info.max
 	closest_stop = None
 	for stop_in_correct_direction in stops_in_correct_direction:
+		stop_position = (stop_in_correct_direction['latitude'], stop_in_correct_direction['longitude'])
 		if haversine(our_position, stop_position) < minimum_distance:
 			closest_stop = stop
 			minimum_distance = haversine(our_position, stop_position)
 	return closest_stop
+
+
+def getRemainingStops(stop_id, stop_list):
+	for i in len(stop_list):
+		if stop_id == stop_list[i]['stop_id']
+			return stops_list[i:]
+		else:
+			return { 'message' : 'stop_id not found' }
+
+def getNextBusStops(name, latitude, longitude, orientation):
+	stop_list = getServiceStops(name)
+	# the upcoming bus stop closest to us
+	next_stop = getClosestStop(latitude, longitude, orientation, stop_list)
+	# stops on the correct bus route
+	route_stops = getDirectedServiceStops(name, next_stop['destination'])
+	remaining_stops = getRemainingStops(next_stop['stop_id'], route_stops)
+	return remaining_stops
 
 
 # translate the JSON dict to SQL
