@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-
 import json
 import sys
-
+import math
+from math import radians, cos, sin, asin, sqrt, atan, degrees
 
 with open('tfe_api/examples/tfe_getStops.txt') as data_file:    
 	stops = json.load(data_file)
@@ -28,12 +28,12 @@ def getServiceStops(service_number):
 			routes = []
 			for route in service['routes']:
 				stop_ids = route['stops']
-				stops = []
+				stop_list = []
 				for stop_id in stop_ids:
 					stop = getStop(stop_id)
 					stop.update({'destination' : route['destination']})
-					stops.append(stop)
-				routes.append(stops)
+					stop_list.append(stop)
+				routes.append(stop_list)
 			return routes
 	return { 'message' : "service_number not found" }
 
@@ -41,6 +41,7 @@ def getServiceNumbers():
 	numbers = []
 	for service in services['services']:
 		numbers.append(service['name'])
+	return numbers
 
 def haversine(pointA, pointB):
 	lat1 = pointA[0]
@@ -90,21 +91,21 @@ def calculate_initial_compass_bearing(pointA, pointB):
 	if (type(pointA) != tuple) or (type(pointB) != tuple):
 		raise TypeError("Only tuples are supported as arguments")
  
-	lat1 = math.radians(pointA[0])
-	lat2 = math.radians(pointB[0])
+	lat1 = radians(pointA[0])
+	lat2 = radians(pointB[0])
  
-	diffLong = math.radians(pointB[1] - pointA[1])
+	diffLong = radians(pointB[1] - pointA[1])
  
-	x = math.sin(diffLong) * math.cos(lat2)
-	y = math.cos(lat1) * math.sin(lat2) - (math.sin(lat1)
-			* math.cos(lat2) * math.cos(diffLong))
+	x = sin(diffLong) * (lat2)
+	y = cos(lat1) * sin(lat2) - (sin(lat1)
+			* cos(lat2) * cos(diffLong))
  
-	initial_bearing = math.atan2(x, y)
+	initial_bearing = atan2(x, y)
  
 	# Now we have the initial bearing but math.atan2 return values
 	# from -180° to + 180° which is not what we want for a compass bearing
 	# The solution is to normalize the initial bearing as shown below
-	initial_bearing = math.degrees(initial_bearing)
+	initial_bearing = degrees(initial_bearing)
 	compass_bearing = (initial_bearing + 360) % 360
  
 	return compass_bearing
@@ -112,10 +113,10 @@ def calculate_initial_compass_bearing(pointA, pointB):
 
 
 # orientation is between 0 and 359 degrees where 0 and 359 degrees represent North
-def getClosestStop(lat, lon, orientation, stops):
+def getClosestStop(lat, lon, orientation, stops_list):
 	our_position = (lat, lon)
 	stop_candidates = []
-	for stop in stops:
+	for stop in stops_list:
 		if similarOrientation(orientation, stop['orientation'], 90):
 			stop_candidates.append(stop)
 	stops_in_correct_direction = []
