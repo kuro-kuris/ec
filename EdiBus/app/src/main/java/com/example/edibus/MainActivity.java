@@ -28,7 +28,9 @@ import org.apache.http.HttpStatus;
 import org.apache.http.StatusLine;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.ResponseHandler;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.ByteArrayOutputStream;
@@ -36,8 +38,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -71,7 +75,7 @@ public class MainActivity extends ActionBarActivity implements
     private static final long INTERVAL = 1000 * 10;
     private static final long FASTEST_INTERVAL = 1000 * 5;
     //location accuracy threshold (m)
-    private static final long ACCURACY_THRESH = 25;
+    private static final long ACCURACY_THRESH = 30;
     //location requesters
     LocationRequest mLocationRequest;
     GoogleApiClient mGoogleApiClient;
@@ -83,6 +87,8 @@ public class MainActivity extends ActionBarActivity implements
     public final boolean testing = true;
 
 
+    //backend server IP address
+    private static final String API_ADDRESS = "http://178.62.140.115/api/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -193,6 +199,14 @@ public class MainActivity extends ActionBarActivity implements
         return manager.isProviderEnabled( LocationManager.GPS_PROVIDER);
     }
     public void onMainClick(View view) {
+
+        // JSON PARSE TESTING
+        String testString = "{\"latitude\": \"55.9443873\", \"longitude\": \"-3.1868156\", \"orientation\": \"271\", \"stops\": [{\"orientation\": 232, \"stop_id\": 36234873, \"latitude\": 55.91022, \"destination\": \"Riccarton\", \"longitude\": -3.317383, \"name\": \"The Avenue\"}]}";
+        List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
+        parsedResponse = JsonParser.parseJson(testString);
+        Log.d(TAG, "Parsed: "+parsedResponse);
+
+
         //store current bus number for later use
         storeBusNumber();
 
@@ -206,6 +220,21 @@ public class MainActivity extends ActionBarActivity implements
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("BusNumber", busNumberEdit.getText().toString());
         editor.apply();
+    }
+
+    //composes url for server call
+    private String composeURL() {
+        String url;
+        //compose service number from N/E prefix + number
+        String serviceNumber = nText.getText().toString() + busNumberEdit.getText().toString();
+
+        //get strings of lat, long, bearing
+        String lat = String.valueOf(mCurrentLocation.getLatitude());
+        String lon = String.valueOf(mCurrentLocation.getLongitude());
+        String bear = String.valueOf(mCurrentLocation.getBearing());
+        //append server url, servicenumber, coords, bearing
+        url = API_ADDRESS + "next/" + serviceNumber + "+" + lat + "+" + lon + "+" + bear;
+        return url;
     }
 
 
@@ -234,7 +263,7 @@ public class MainActivity extends ActionBarActivity implements
                             "Accuracy: " + mCurrentLocation.getAccuracy() + "\n" +
                             "Provider: " + mCurrentLocation.getProvider());
         } else {
-            Log.d(TAG, "Location not found");
+            Log.d(TAG, "Location not found; accuracy: "+mCurrentLocation.getAccuracy());
         }
     }
 
@@ -273,15 +302,25 @@ public class MainActivity extends ActionBarActivity implements
             String responseString = null;
 
             //if we are tesing we don't want to wait for location
+
             if (testing) {
+                while (mCurrentLocation==null) {
+
+                }
                 mCurrentLocation.setLatitude(55.944633);
                 mCurrentLocation.setLongitude(-3.187080);
                 mLastBearing = 100;
             }
 
+            String updatedURL;
             //do nothing until bearing gets updated
             while (mLastBearing == -1) {
             }
+
+            //once bearing is updated, refresh URL to include current bearing
+            updatedURL = composeURL();
+            Log.d(TAG, "Bearing found, sending request " + updatedURL);
+            /*
             if (isNetworkAvailable()) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response;
@@ -305,8 +344,26 @@ public class MainActivity extends ActionBarActivity implements
                     e.printStackTrace();
                 }
             }
-            Log.e("responseString" , responseString);
-            return responseString;
+
+            */
+            String response = "";
+            if (isNetworkAvailable()){
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet request = new HttpGet(updatedURL);
+                ResponseHandler<String> handler = new BasicResponseHandler();
+
+                try {
+                    response = httpclient.execute(request, handler);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Log.d(TAG, "Received: "+response);
+
+                List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
+                parsedResponse = JsonParser.parseJson(response);
+                Log.d(TAG, "Parsed: "+parsedResponse);
+            }
+            return response;
         }
 
         private String getUrlWithParams(String url) {
