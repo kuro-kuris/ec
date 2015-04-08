@@ -20,7 +20,7 @@ parser = reqparse.RequestParser()
 parser.add_argument('name', type=str)
 parser.add_argument('latitude', type=float)
 parser.add_argument('longitude', type=float)
-parser.add_argument('orientation', type=int)
+parser.add_argument('orientation', type=float)
 
 class BusStops(Resource):
 
