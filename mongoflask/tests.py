@@ -20,7 +20,12 @@ class brain_TestCase(unittest.TestCase):
 		assert haversine(pointA, pointB) > 264 and haversine(pointA, pointB) < 265
 
 	def test_calculate_initial_compass_bearing(self):
-		assert True == True
+		stop_list = getServiceStops('44')
+		pointA = (stop_list[3]['latitude'],stop_list[3]['longitude'])
+		pointB = (stop_list[4]['latitude'],stop_list[4]['longitude'])
+		print pointA
+		print pointB
+		print calculate_initial_compass_bearing(pointA, pointB)
 
 	def test_getClosestStop(self):
 		stop_list = getServiceStops('44')
