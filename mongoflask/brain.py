@@ -44,8 +44,6 @@ def getDirectedServiceStops(service_number, destination):
 			stop_list.append(stop)
 	return stop_list	
 
-
-
 def getServiceDestinations(name):
 	for service in services['services']:
 		if unicode(name) == service['name']:
@@ -80,9 +78,9 @@ def haversine(pointA, pointB):
 	return m
 
 def similarOrientation(o1, o2, accuracy):
-	if ((o2 % 360) < (o1 + accuracy) % 360) or ((o2 % 360) > (o1 - accuracy) % 360):
-		return True
-	else:
+    if ((o2 % 360) < (o1 + accuracy) % 360) or ((o2 % 360) > (o1 - accuracy) % 360):
+    	return True
+    else:
 		return False
 
 def calculate_initial_compass_bearing(pointA, pointB):
@@ -113,7 +111,7 @@ def calculate_initial_compass_bearing(pointA, pointB):
  
 	diffLong = radians(pointB[1] - pointA[1])
  
-	x = sin(diffLong) * (lat2)
+	x = sin(diffLong) * cos(lat2)
 	y = cos(lat1) * sin(lat2) - (sin(lat1)
 			* cos(lat2) * cos(diffLong))
  

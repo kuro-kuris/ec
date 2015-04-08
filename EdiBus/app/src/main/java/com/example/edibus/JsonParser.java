@@ -14,22 +14,15 @@ import java.util.List;
 public class JsonParser extends ListActivity{
 
     //JSON node names for json received from server
-    private static final String TAG_ROUTE = "Route";
+    private static final String TAG_STOPS = "stops";
     private static final String TAG_STOPNAME = "name";
     private static final String TAG_LAT = "latitude";
     private static final String TAG_LONG = "longitude";
 
-    //JSON array for list of stops
-    JSONArray stops = null;
-
-    //Pair list for individual parsed stops
-    List<Pair> stopList;
-    Pair<String,Location> stop;
-
     //Custom pair class to store stopName,Location values in ordered array
-    public class Pair<String,Location> {
-        private final String stopName;
-        private final Location stopLocation;
+    public static class Pair<String,Location> {
+        private String stopName;
+        private Location stopLocation;
 
         public Pair(String stopName, Location stopLocation){
             this.stopName = stopName;
@@ -39,14 +32,17 @@ public class JsonParser extends ListActivity{
         public Location getStopLocation() {return stopLocation;}
     }
 
-    public List<Pair> parseJson(String jsonString){
+    public static List<Pair> parseJson(String jsonString){
+        JSONArray stops = new JSONArray();
+        List<Pair> stopList = new ArrayList<JsonParser.Pair>();
         try {
             //create JSON object from string received from server
             JSONObject jsonObj = new JSONObject(jsonString);
             //move each stop object into the stops array
-            stops = jsonObj.getJSONArray(TAG_ROUTE);
+            stops = jsonObj.getJSONArray(TAG_STOPS);
             //loop through each stop object
             for (int i = 0; i < stops.length(); i++){
+                Pair stopInstance;
                 //retrieve a stop from the array of stops
                 JSONObject s = stops.getJSONObject(i);
                 //get the attributes of the stop; name, latitude, longitude
@@ -57,10 +53,12 @@ public class JsonParser extends ListActivity{
                 Location stopLocation = new Location("");
                 stopLocation.setLatitude(lat);
                 stopLocation.setLongitude(lon);
+                System.out.println("Stop: "+stopName+"; Lat: "+lat+"; Long: "+lon);
                 //create a pair item for each stop
-                stop = new Pair(stopName,stopLocation);
+                stopInstance = new Pair(stopName,stopLocation);
+                System.out.println("Pair element: "+stopInstance);
                 //add the pair item to the list of stops
-                stopList.add(stop);
+                stopList.add(stopInstance);
             }
         } catch (JSONException e) {
             e.printStackTrace();
