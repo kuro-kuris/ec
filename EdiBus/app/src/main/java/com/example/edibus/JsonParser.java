@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class JsonParser extends ListActivity{
 
@@ -21,12 +22,24 @@ public class JsonParser extends ListActivity{
     //JSON array for list of stops
     JSONArray stops = null;
 
-    ArrayList<HashMap<String, Location>> stopList;
+    //Pair list for individual parsed stops
+    List<Pair> stopList;
+    Pair<String,Location> stop;
 
-    public ArrayList<HashMap<String, Location>> parseJson(String jsonString){
+    //Custom pair class to store stopName,Location values in ordered array
+    public class Pair<String,Location> {
+        private final String stopName;
+        private final Location stopLocation;
 
-        stopList = new ArrayList<HashMap<String, Location>>();
+        public Pair(String stopName, Location stopLocation){
+            this.stopName = stopName;
+            this.stopLocation = stopLocation;
+        }
+        public String getName() {return stopName;}
+        public Location getStopLocation() {return stopLocation;}
+    }
 
+    public List<Pair> parseJson(String jsonString){
         try {
             //create JSON object from string received from server
             JSONObject jsonObj = new JSONObject(jsonString);
@@ -40,17 +53,15 @@ public class JsonParser extends ListActivity{
                 String stopName = s.getString(TAG_STOPNAME);
                 Double lat = s.getDouble(TAG_LAT);
                 Double lon = s.getDouble(TAG_LONG);
-                //initialise the hashmap for a parsed stop
-                HashMap<String, Location> stop = new HashMap<String, Location>();
                 //create a location object for each stop
                 Location stopLocation = new Location("");
                 stopLocation.setLatitude(lat);
                 stopLocation.setLongitude(lon);
-                //add the hashmap to the arraylist
-                stop.put(stopName,stopLocation);
+                //create a pair item for each stop
+                stop = new Pair(stopName,stopLocation);
+                //add the pair item to the list of stops
                 stopList.add(stop);
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
