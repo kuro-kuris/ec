@@ -29,7 +29,7 @@ class BusStops(Resource):
     	#abort_if_service_doesnt_exist(name)
     	routes = getServiceStops(unicode(name)) 
         response = {}
-        response.update({'Route' : routes[0]})
+        response.update({'Route' : routes})
         return response
 
 
@@ -38,6 +38,7 @@ class NextStops(Resource):
     def get(self, name, latitude, longitude, orientation):
         stop_list = getServiceStops(name)
         response = getNextBusStops(name, latitude, longitude, orientation)
+        response.update({'latitude' : latitude, 'longitude' : longitude, 'orientation' : orientation})
         return response
 
 # Register resources
