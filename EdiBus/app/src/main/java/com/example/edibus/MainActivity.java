@@ -38,8 +38,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -192,6 +194,14 @@ public class MainActivity extends ActionBarActivity implements
         return manager.isProviderEnabled( LocationManager.GPS_PROVIDER);
     }
     public void onMainClick(View view) {
+
+        // JSON PARSE TESTING
+        String testString = "{\"latitude\": \"55.9443873\", \"longitude\": \"-3.1868156\", \"orientation\": \"271\", \"stops\": [{\"orientation\": 232, \"stop_id\": 36234873, \"latitude\": 55.91022, \"destination\": \"Riccarton\", \"longitude\": -3.317383, \"name\": \"The Avenue\"}]}";
+        List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
+        parsedResponse = JsonParser.parseJson(testString);
+        Log.d(TAG, "Parsed: "+parsedResponse);
+
+
         //store current bus number for later use
         storeBusNumber();
         //if we displayed error before
@@ -333,6 +343,10 @@ public class MainActivity extends ActionBarActivity implements
                     e.printStackTrace();
                 }
                 Log.d(TAG, "Received: "+response);
+
+                List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
+                parsedResponse = JsonParser.parseJson(response);
+                Log.d(TAG, "Parsed: "+parsedResponse);
             }
             return response;
         }
