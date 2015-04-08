@@ -23,9 +23,7 @@ class brain_TestCase(unittest.TestCase):
 		stop_list = getServiceStops('44')
 		pointA = (stop_list[3]['latitude'],stop_list[3]['longitude'])
 		pointB = (stop_list[4]['latitude'],stop_list[4]['longitude'])
-		print pointA
-		print pointB
-		print calculate_initial_compass_bearing(pointA, pointB)
+		assert calculate_initial_compass_bearing(pointA, pointB) > 324 and calculate_initial_compass_bearing(pointA, pointB) < 325
 
 	def test_getClosestStop(self):
 		stop_list = getServiceStops('44')
