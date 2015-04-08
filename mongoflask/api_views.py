@@ -20,24 +20,31 @@ parser.add_argument('latitude', type=float)
 parser.add_argument('longitude', type=float)
 parser.add_argument('orientation', type=float)
 
+def simplify_stop_list(stop_list):
+    simplified = []
+    for stop in stop_list:
+        wanted_keys = ['name', 'latitude', 'longitude']
+        simplified.append(sub_dict(stop, wanted_keys))
+    return simplified
+
+
 class BusStops(Resource):
 
 	
     def get(self, name):
     	#abort_if_service_doesnt_exist(name)
-    	routes = getServiceStops(unicode(name)) 
-        response = {}
-        response.update({'Route' : routes})
-        return response
+    	route = getServiceStops(unicode(name))
+        response = simplify_stop_list(route)
+        return {'stops' : response}
 
 
 class NextStops(Resource):
 
     def get(self, name, latitude, longitude, orientation):
         stop_list = getServiceStops(name)
-        response = getNextBusStops(name, latitude, longitude, orientation)
-        response.update({'latitude' : latitude, 'longitude' : longitude, 'orientation' : orientation})
-        return response
+        route = getNextBusStops(name, latitude, longitude, orientation)
+        response = simplify_stop_list(route['stops'])
+        return {'stops' : response}
 
 # Register resources
 
