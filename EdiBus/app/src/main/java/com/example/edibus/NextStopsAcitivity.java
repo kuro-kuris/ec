@@ -2,6 +2,7 @@ package com.example.edibus;
 
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,13 @@ public class NextStopsAcitivity extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //If we are coming back to the app we want to force restart the app
+        if ( savedInstanceState != null){
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.addFlags(IntentCompat.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_next_stops);
         //used to get all extras we sent from calling Activity

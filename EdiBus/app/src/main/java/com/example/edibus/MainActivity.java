@@ -64,6 +64,7 @@ public class MainActivity extends ActionBarActivity implements
     TextView nText;
     //checkBox for setting express bus
     CheckBox expressCheckBox;
+    public final String URL = "http://178.62.140.115/api/next/";
     //location tag
     private static final String TAG = "LocationActivity";
     //location refresh intervals (ms)
@@ -78,6 +79,10 @@ public class MainActivity extends ActionBarActivity implements
     Location mCurrentLocation;
     String mLastUpdateTime;
     float mLastBearing = -1;
+    //for testing purposes skips location check before proceeding to next screen
+    public final boolean testing = true;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -190,14 +195,10 @@ public class MainActivity extends ActionBarActivity implements
     public void onMainClick(View view) {
         //store current bus number for later use
         storeBusNumber();
-        //if we displayed error before
-        if (progressButton.getProgress() == -1 && !isNetworkAvailable()) {
-           Utils.displayPromptForEnablingInternet(this);
-        }
 
         //create a new asynctask connecting to the server
-        RequestTask task = new RequestTask();
-        task.execute("http://178.62.4.227/authenticate/1247438");
+        RequestTask task = new RequestTask(this);
+        task.execute(URL);
     }
     //stores bus number into shared preferences
     private void storeBusNumber() {
@@ -240,13 +241,20 @@ public class MainActivity extends ActionBarActivity implements
     private String getLastUsedBusNumber() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         //gets bus number from shared pref, with 50 value in case no other value was stored before
-        String name = preferences.getString("BusNumber","50");
+        String name = preferences.getString("BusNumber","22");
         return name;
     }
 
 
 
     class RequestTask extends AsyncTask<String, Void, String> {
+
+        Activity activity;
+
+
+        public RequestTask (Activity activity) {
+            this.activity = activity;
+        }
 
         @Override
         protected void onPreExecute() {
@@ -263,15 +271,23 @@ public class MainActivity extends ActionBarActivity implements
         @Override
         protected String doInBackground(String... uri) {
             String responseString = null;
+
+            //if we are tesing we don't want to wait for location
+            if (testing) {
+                mCurrentLocation.setLatitude(55.944633);
+                mCurrentLocation.setLongitude(-3.187080);
+                mLastBearing = 100;
+            }
+
             //do nothing until bearing gets updated
             while (mLastBearing == -1) {
-
             }
             if (isNetworkAvailable()) {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response;
                 try {
-                    response = httpclient.execute(new HttpGet(uri[0]));
+
+                    response = httpclient.execute(new HttpGet(getUrlWithParams(uri[0])));
                     StatusLine statusLine = response.getStatusLine();
                     if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
                         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -289,7 +305,25 @@ public class MainActivity extends ActionBarActivity implements
                     e.printStackTrace();
                 }
             }
+            Log.e("responseString" , responseString);
             return responseString;
+        }
+
+        private String getUrlWithParams(String url) {
+            String urlWithParams = url;
+            //nothing N or E
+            urlWithParams += nText.getText() ;
+            //Bus number
+            urlWithParams += busNumberEdit.getText();
+            //latitude
+            urlWithParams += "+" + mCurrentLocation.getLatitude();
+            //longitude
+            urlWithParams += "+" + mCurrentLocation.getLongitude();
+            //bearing
+            urlWithParams += "+" + mLastBearing;
+            Log.e("urlwithparams", urlWithParams);
+            return urlWithParams;
+
         }
 
 
@@ -308,6 +342,16 @@ public class MainActivity extends ActionBarActivity implements
             else {
                 //trigger failure button
                 progressButton.setProgress(-1);
+
+                if (!isNetworkAvailable()) {
+                    Utils.displayPromptForEnablingInternet(activity);
+                }
+
+                //if we fail let user edit fields again
+                //disable editable elements on the screen
+                busNumberEdit.setEnabled(true);
+                expressCheckBox.setEnabled(true);
+                nText.setEnabled(true);
             }
         }
 
@@ -383,4 +427,7 @@ public class MainActivity extends ActionBarActivity implements
         mGoogleApiClient.disconnect();
     }
 }
+
+
+
 
