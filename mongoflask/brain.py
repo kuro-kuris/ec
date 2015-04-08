@@ -127,24 +127,29 @@ def calculate_initial_compass_bearing(pointA, pointB):
 
 
 
+def getCorrectDirectionStops(position, orientation, stop_list):
+	stops_in_correct_direction = []
+	for stop in stop_list:
+		stop_position = (stop['latitude'], stop['longitude'])
+		compass_bearing = calculate_initial_compass_bearing(position, stop_position)
+		if similarOrientation(orientation, compass_bearing, 75):
+			stops_in_correct_direction.append(stop)
+	return stops_in_correct_direction
+
 # orientation is between 0 and 359 degrees where 0 and 359 degrees represent North
 def getClosestStop(lat, lon, orientation, stops_list):
 	orientation = float(orientation)
 	our_position = (float(lat), float(lon))
-	stops_in_correct_direction = []
-	for stop in stops_list:
-		stop_position = (stop['latitude'], stop['longitude'])
-		compass_bearing = calculate_initial_compass_bearing(our_position, stop_position)
-		if similarOrientation(orientation, compass_bearing, 75):
-			stops_in_correct_direction.append(stop)
-	# python maximum float value        
-	minimum_distance = sys.float_info.max
+	candidates = getCorrectDirectionStops(our_position, orientation, stops_list)
+	# value that could never appear:
+	min_dis = 3000000
 	closest_stop = None
-	for stop_in_correct_direction in stops_in_correct_direction:
-		stop_position = (stop_in_correct_direction['latitude'], stop_in_correct_direction['longitude'])
-		if haversine(our_position, stop_position) < minimum_distance:
-			closest_stop = stop
-			minimum_distance = haversine(our_position, stop_position)
+	for candidate in candidates:
+	    position = (candidate['latitude'],candidate['longitude'])
+	    if haversine(position,our_position) < min_dis:
+	        closest_stop = candidate
+	        min_dis = haversine(position,our_position)
+	        print min_dis
 	return closest_stop
 
 
@@ -164,13 +169,6 @@ def getNextBusStops(name, latitude, longitude, orientation):
 	remaining_stops = getRemainingStops(next_stop['stop_id'], route_stops)
 	return {'stops' : remaining_stops}
 
-
-# translate the JSON dict to SQL
-def stopJSONtoSQL(stop_dict):
-	stop = models.Stop(name = stop_dict['name'], stop_id = stop_dict['stop_id'],
-		orientation = stop_dict['orientation'], latitude = stop_dict['latitude'],
-		longitude = stop_dict['longitude']
-	)
 
 
 

@@ -232,13 +232,6 @@ public class MainActivity extends ActionBarActivity implements
     }
     public void onMainClick(View view) {
 
-        // JSON PARSE TESTING
-        String testString = "{\"latitude\": \"55.9443873\", \"longitude\": \"-3.1868156\", \"orientation\": \"271\", \"stops\": [{\"orientation\": 232, \"stop_id\": 36234873, \"latitude\": 55.91022, \"destination\": \"Riccarton\", \"longitude\": -3.317383, \"name\": \"The Avenue\"}]}";
-        List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
-        parsedResponse = JsonParser.parseJson(testString);
-        Log.d(TAG, "Parsed: "+parsedResponse);
-
-
         //store current bus number for later use
         storeBusNumber();
 
@@ -312,7 +305,6 @@ public class MainActivity extends ActionBarActivity implements
 
         Activity activity;
 
-
         public RequestTask (Activity activity) {
             this.activity = activity;
         }
@@ -352,48 +344,32 @@ public class MainActivity extends ActionBarActivity implements
             //once bearing is updated, refresh URL to include current bearing
             updatedURL = composeURL();
             Log.d(TAG, "Bearing found, sending request " + updatedURL);
-            /*
-            if (isNetworkAvailable()) {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpResponse response;
-                try {
 
-                    response = httpclient.execute(new HttpGet(getUrlWithParams(uri[0])));
-                    StatusLine statusLine = response.getStatusLine();
-                    if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
-                        ByteArrayOutputStream out = new ByteArrayOutputStream();
-                        response.getEntity().writeTo(out);
-                        responseString = out.toString();
-                        out.close();
-                    } else {
-                        //Closes the connection.
-                        response.getEntity().getContent().close();
-                        throw new IOException(statusLine.getReasonPhrase());
-                    }
-                } catch (ClientProtocolException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            */
+            //prepare response string
             String response = "";
             if (isNetworkAvailable()){
+                //create httpclient, and send a HttpGet request with url containing parameters
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpGet request = new HttpGet(updatedURL);
+                //handle the response from the backend
                 ResponseHandler<String> handler = new BasicResponseHandler();
-
                 try {
                     response = httpclient.execute(request, handler);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                Log.d(TAG, "Received: "+response);
 
+                //initialise List of stopName,stopLocation pairs
                 List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
+                //parse server response into list
                 parsedResponse = JsonParser.parseJson(response);
-                Log.d(TAG, "Parsed: "+parsedResponse);
+                //transfer parsed list into static stop list
+                JsonParser.staticStopList.setList(parsedResponse);
+                for (int i = 0; i < parsedResponse.size() ; i++){
+                    //print received stops into log for verification/testing
+                    Location parsedStop = (Location) parsedResponse.get(i).getStopLocation();
+                    Log.d(TAG, "parsed: "+parsedResponse.get(i).getName() + " : "+ parsedStop.getLatitude()+", "+parsedStop.getLongitude());
+                }
             }
             return response;
         }

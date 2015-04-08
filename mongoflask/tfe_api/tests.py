@@ -3,7 +3,8 @@ from tfe_api import *
 from time import time
 
 
-
+# tests which api calls are available
+# currently the directions call fails
 class tfe_apiTestCase(unittest.TestCase):
 	
 	def test_getStops(self):

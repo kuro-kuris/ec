@@ -53,10 +53,8 @@ public class JsonParser extends ListActivity{
                 Location stopLocation = new Location("");
                 stopLocation.setLatitude(lat);
                 stopLocation.setLongitude(lon);
-                System.out.println("Stop: "+stopName+"; Lat: "+lat+"; Long: "+lon);
                 //create a pair item for each stop
                 stopInstance = new Pair(stopName,stopLocation);
-                System.out.println("Pair element: "+stopInstance);
                 //add the pair item to the list of stops
                 stopList.add(stopInstance);
             }
@@ -64,6 +62,13 @@ public class JsonParser extends ListActivity{
             e.printStackTrace();
         }
         return stopList;
+    }
+
+    public static class staticStopList{
+        private static List<Pair> stopList;
+
+        public static void setList(List<Pair> aStopList){ stopList = aStopList;}
+        public static List<Pair> getList() { return stopList;}
     }
 
 }
