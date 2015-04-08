@@ -36,7 +36,8 @@ class BusStops(Resource):
 class NextStops(Resource):
 
     def get(self, name, latitude, longitude, orientation):
-        response = {'name' : name, 'latitude' : latitude, 'longitude' : longitude, 'orientation' : orientation}
+        stop_list = getServiceStops(name)
+        response = getNextBusStops(name, latitude, longitude, orientation)
         return response
 
 # Register resources
