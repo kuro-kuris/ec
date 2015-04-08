@@ -2,6 +2,7 @@ package com.example.edibus;
 
 import android.content.Intent;
 import android.location.Location;
+import android.os.Handler;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.IntentCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -9,6 +10,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.accessibility.AccessibilityEvent;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -33,6 +36,14 @@ public class NextStopsAcitivity extends ActionBarActivity implements
         GoogleApiClient.OnConnectionFailedListener{
 
     String busNumber;
+
+    //stops
+    private TextView stopTextView1;
+    private TextView stopTextView2;
+    private TextView stopTextView3;
+    //list with Stops
+    List<JsonParser.Pair> parsedResponse;
+
 
     //location listeners
     //location tag
@@ -77,8 +88,15 @@ public class NextStopsAcitivity extends ActionBarActivity implements
         setTitle("Bus number : " + busNumber);
 
         //retrieve static stop list
-        List<JsonParser.Pair> parsedResponse;
         parsedResponse = JsonParser.staticStopList.getList();
+
+        //instantiate first 3 stops
+        stopTextView1 = (TextView) findViewById(R.id.stopTextView1);
+        stopTextView2 = (TextView) findViewById(R.id.stopTextView2);
+        stopTextView3 = (TextView) findViewById(R.id.stopTextView3);
+        //populate stop text views
+        updateStopsUI();
+
 
         // create location listener
         createLocationRequest();
@@ -106,6 +124,46 @@ public class NextStopsAcitivity extends ActionBarActivity implements
         NavUtils.navigateUpFromSameTask(this);
         //transition to use between these two activities
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    //Updates UI with the upcoming stops
+    private void updateStopsUI() {
+        //first stop
+        if (parsedResponse.size()!=0) {
+            String stopName = (String)parsedResponse.get(0).getName();
+            stopTextView1.setText(stopName);
+            //force announcing of this stop to alert user
+            announceStopAfterTime(2500);
+        }else {
+            stopTextView1.setText("No more stops");
+        }
+        //second stop
+        if (parsedResponse.size()>0) {
+            String stopName = (String)parsedResponse.get(1).getName();
+            stopTextView2.setText(stopName);
+        }else {
+            stopTextView2.setText("");
+        }
+
+        //third stop
+        if (parsedResponse.size()>1) {
+            String stopName = (String)parsedResponse.get(2).getName();
+            stopTextView3.setText(stopName);
+        }else {
+            stopTextView3.setText("");
+        }
+
+
+    }
+
+    private void announceStopAfterTime(long time) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable(){
+            @Override
+            public void run(){
+                stopTextView1.sendAccessibilityEvent(AccessibilityEvent.TYPE_VIEW_FOCUSED);
+            }
+        }, time);
     }
 
     protected synchronized void createGoogleApiClient() {
