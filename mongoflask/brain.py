@@ -89,7 +89,7 @@ def haversine(pointA, pointB):
 	return m
 
 def similarOrientation(o1, o2, accuracy):
-	if (o2 % 360) < (o1 + accuracy) % 360 or (o2 % 360) > (o1 - accuracy) % 360:
+	if ((o2 % 360) < (o1 + accuracy) % 360) or ((o2 % 360) > (o1 - accuracy) % 360):
 		return True
 	else:
 		return False
@@ -140,14 +140,14 @@ def calculate_initial_compass_bearing(pointA, pointB):
 
 # orientation is between 0 and 359 degrees where 0 and 359 degrees represent North
 def getClosestStop(lat, lon, orientation, stops_list):
-	our_position = (lat, lon)
-	stops_in_correct_directio
-n = []
-	for stop_candidate in stops_list:
+	orientation = float(orientation)
+	our_position = (float(lat), float(lon))
+	stops_in_correct_direction = []
+	for stop in stops_list:
 		stop_position = (stop['latitude'], stop['longitude'])
-		stop_bearing = calculate_initial_compass_bearing(our_position, stop_position)
-		if similarOrientation(orientation, stop_bearing, 75):
-			stops_in_correct_direction.append(stop_candidate)
+		compass_bearing = calculate_initial_compass_bearing(our_position, stop_position)
+		if similarOrientation(orientation, compass_bearing, 75):
+			stops_in_correct_direction.append(stop)
 	# python maximum float value        
 	minimum_distance = sys.float_info.max
 	closest_stop = None
@@ -160,11 +160,14 @@ n = []
 
 
 def getRemainingStops(stop_id, stop_list):
-	for i in len(stop_list):
-		if stop_id == stop_list[i]['stop_id']
-			return stops_list[i:]
-		else:
-			return { 'message' : 'stop_id not found' }
+	if len(stop_list) > 1:
+		for i in range(len(stop_list)):
+			if stop_id == stop_list[i]['stop_id']:
+				return stops_list[i:]
+			else:
+				return { 'message' : 'stop_id not found' }
+	else:
+		return stop_list
 
 def getNextBusStops(name, latitude, longitude, orientation):
 	stop_list = getServiceStops(name)
