@@ -105,6 +105,8 @@ public class MainActivity extends ActionBarActivity implements
         busNumberEdit = (EditText) findViewById(R.id.busNumberEditText);
         //set BusNumber based on the last bus number used
         busNumberEdit.setText(getLastUsedBusNumber());
+        //point cursor to the end of edit text
+        busNumberEdit.setSelection(busNumberEdit.getText().length());
         // turn on indeterminate progress
         progressButton.setIndeterminateProgressMode(true);
         // set Text view for night busses
