@@ -13,6 +13,8 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -107,6 +109,8 @@ public class MainActivity extends ActionBarActivity implements
         busNumberEdit.setText(getLastUsedBusNumber());
         //point cursor to the end of edit text
         busNumberEdit.setSelection(busNumberEdit.getText().length());
+        //set listener for enhances accessiblity
+        setBusNumberEditListeners();
         // turn on indeterminate progress
         progressButton.setIndeterminateProgressMode(true);
         // set Text view for night busses
@@ -168,6 +172,32 @@ public class MainActivity extends ActionBarActivity implements
             }
         };
         return listener;
+    }
+    //Overriding methods to prevent the user to move the cursor from the last position
+    //Improves usability with accessibility features
+    private void setBusNumberEditListeners() {
+        busNumberEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                busNumberEdit.setSelection(busNumberEdit.getText().length());
+            }
+
+        });
+        busNumberEdit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                {
+                    // code to hide the soft keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(busNumberEdit.getApplicationWindowToken(), 0);
+                }
+                return false;
+            }
+        });
     }
 
     protected synchronized void createGoogleApiClient() {
