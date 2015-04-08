@@ -171,12 +171,5 @@ def getNextBusStops(name, latitude, longitude, orientation):
 	return {'stops' : remaining_stops}
 
 
-# translate the JSON dict to SQL
-def stopJSONtoSQL(stop_dict):
-	stop = models.Stop(name = stop_dict['name'], stop_id = stop_dict['stop_id'],
-		orientation = stop_dict['orientation'], latitude = stop_dict['latitude'],
-		longitude = stop_dict['longitude']
-	)
-
 
 
