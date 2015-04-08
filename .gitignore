@@ -55,6 +55,7 @@ target/
 
 # virtualenvs
 venv
+ecenv
 
 # ignore videos
 sample.avi
@@ -67,3 +68,9 @@ db_repository
 
 # locked files
 *~
+
+# deployment
+mongoflask.wsgi
+
+# server environment variables
+fileconfig.py
