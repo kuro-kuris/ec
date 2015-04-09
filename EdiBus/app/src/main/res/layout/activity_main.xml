@@ -22,7 +22,7 @@
         app:cpb_textError="@string/button_error"
         app:cpb_textIdle="@string/button_upload"
         app:cpb_cornerRadius="48dp"
-        android:contentDescription="This is my Bus"
+        android:contentDescription="Confirm bus"
         app:cpb_selectorIdle="@drawable/button_idle_state_selector"
         app:cpb_colorIndicator="@color/my_red"
         android:onClick="onMainClick"
@@ -41,7 +41,6 @@
         android:textSize="160dp"
         android:singleLine="true"
         android:background="@drawable/edit_text_box"
-        android:hint="Bus number"
         android:contentDescription="Bus number"
         android:gravity="center"
         android:layout_alignParentTop="true"
@@ -76,6 +75,17 @@
         android:textSize="25dp"
 
         android:layout_below="@+id/busNumberEditText"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:longClickable="false"
+        android:clickable="false"
+        android:id="@+id/loadingMessageTextView"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -69,6 +69,7 @@ public class JsonParser extends ListActivity{
 
         public static void setList(List<Pair> aStopList){ stopList = aStopList;}
         public static List<Pair> getList() { return stopList;}
+        public static void setToNull() { stopList = null;}
     }
 
 }
