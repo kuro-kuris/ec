@@ -88,7 +88,6 @@ public class NextStopsAcitivity extends ActionBarActivity{
         setTitle("Bus number : " + busNumber);
         mGeofenceList = new ArrayList<Geofence>();
         //retrieve static stop list
-        List<JsonParser.Pair> parsedResponse;
         parsedResponse = JsonParser.staticStopList.getList();
         //instantiate first 3 stops
         stopTextView1 = (TextView) findViewById(R.id.stopTextView1);
