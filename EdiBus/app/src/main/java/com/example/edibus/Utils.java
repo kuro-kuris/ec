@@ -49,7 +49,7 @@ class Utils {
 
         builder.setMessage(message)
 
-                .setPositiveButton("OK",
+                .setPositiveButton("Settings",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface d, int id) {
                                 activity.startActivity(new Intent(action));

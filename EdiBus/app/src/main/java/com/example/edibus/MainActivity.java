@@ -13,8 +13,11 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.accessibility.AccessibilityEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -68,6 +71,8 @@ public class MainActivity extends ActionBarActivity implements
     TextView nText;
     //checkBox for setting express bus
     CheckBox expressCheckBox;
+    //textview displayed whilst loading
+    TextView loadingMessageText;
     public final String URL = "http://178.62.140.115/api/next/";
     //location tag
     private static final String TAG = "LocationActivity";
@@ -107,6 +112,8 @@ public class MainActivity extends ActionBarActivity implements
         busNumberEdit.setText(getLastUsedBusNumber());
         //point cursor to the end of edit text
         busNumberEdit.setSelection(busNumberEdit.getText().length());
+        //set listener for enhances accessiblity
+        setBusNumberEditListeners();
         // turn on indeterminate progress
         progressButton.setIndeterminateProgressMode(true);
         // set Text view for night busses
@@ -117,6 +124,8 @@ public class MainActivity extends ActionBarActivity implements
         expressCheckBox.setOnCheckedChangeListener(createCheckBoxListner());
         //has to be called after check box is set, as it removes it for night busses
         setNForNightBusses();
+        //textview used to display messages during loading
+        loadingMessageText = (TextView) findViewById(R.id.loadingMessageTextView);
 
 
         if (!isGPSEnabled())
@@ -147,6 +156,7 @@ public class MainActivity extends ActionBarActivity implements
         //if it's more than four am disable the N
         if (now.after(fourAm)) {
             nText.setText("");
+            nText.setContentDescription("");
 
         }else {
             //remove checkbox as there are no express busses at night
@@ -161,13 +171,45 @@ public class MainActivity extends ActionBarActivity implements
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 //set E in front of busEditText
-                if (isChecked)
+                if (isChecked) {
+
+
                     nText.setText("E");
-                else
+                    nText.setContentDescription("Express bus");
+                }
+                else {
                     nText.setText("");
+                    nText.setContentDescription("");
+                }
             }
         };
         return listener;
+    }
+    //Overriding methods to prevent the user to move the cursor from the last position
+    //Improves usability with accessibility features
+    private void setBusNumberEditListeners() {
+        busNumberEdit.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                busNumberEdit.setSelection(busNumberEdit.getText().length());
+            }
+
+        });
+        busNumberEdit.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+
+                if (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)
+                {
+                    // code to hide the soft keyboard
+                    InputMethodManager imm = (InputMethodManager) getSystemService(
+                            Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(busNumberEdit.getApplicationWindowToken(), 0);
+                }
+                return false;
+            }
+        });
     }
 
     protected synchronized void createGoogleApiClient() {
@@ -202,19 +244,15 @@ public class MainActivity extends ActionBarActivity implements
     }
     public void onMainClick(View view) {
 
-        // JSON PARSE TESTING
-        String testString = "{\"latitude\": \"55.9443873\", \"longitude\": \"-3.1868156\", \"orientation\": \"271\", \"stops\": [{\"orientation\": 232, \"stop_id\": 36234873, \"latitude\": 55.91022, \"destination\": \"Riccarton\", \"longitude\": -3.317383, \"name\": \"The Avenue\"}]}";
-        List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
-        parsedResponse = JsonParser.parseJson(testString);
-        Log.d(TAG, "Parsed: "+parsedResponse);
-
-
         //store current bus number for later use
         storeBusNumber();
-
-        //create a new asynctask connecting to the server
-        RequestTask task = new RequestTask(this);
-        task.execute(URL);
+        //if the busNumberEdit is not empty
+        if (!(busNumberEdit.getText().toString().equals(null) || busNumberEdit.getText().toString().equals(""))) {
+            //create a new asynctask connecting to the server
+            RequestTask task = new RequestTask(this);
+            task.execute(URL);
+        }else
+            Toast.makeText(this,"Please input bus number",Toast.LENGTH_LONG).show();
     }
     //stores bus number into shared preferences
     private void storeBusNumber() {
@@ -282,7 +320,6 @@ public class MainActivity extends ActionBarActivity implements
 
         Activity activity;
 
-
         public RequestTask (Activity activity) {
             this.activity = activity;
         }
@@ -296,18 +333,17 @@ public class MainActivity extends ActionBarActivity implements
             nText.setEnabled(false);
             //starts spinning the button
             progressButton.setProgress(50);
+            //set connecting message
+            loadingMessageText.setText("Trying to connect, please wait");
         }
 
 
         @Override
         protected String doInBackground(String... uri) {
-            String responseString = null;
 
             //if we are tesing we don't want to wait for location
-
             if (testing) {
                 while (mCurrentLocation==null) {
-
                 }
                 mCurrentLocation.setLatitude(55.944633);
                 mCurrentLocation.setLongitude(-3.187080);
@@ -322,13 +358,18 @@ public class MainActivity extends ActionBarActivity implements
             //once bearing is updated, refresh URL to include current bearing
             updatedURL = composeURL();
             Log.d(TAG, "Bearing found, sending request " + updatedURL);
-            /*
-            if (isNetworkAvailable()) {
+
+            //prepare response string
+            String responseString ="";
+            //String response = "";
+
+            if (isNetworkAvailable()){
+                //create httpclient, and send a HttpGet request with url containing parameters
+
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpResponse response;
                 try {
-
-                    response = httpclient.execute(new HttpGet(getUrlWithParams(uri[0])));
+                    response = httpclient.execute(new HttpGet(updatedURL));
                     StatusLine statusLine = response.getStatusLine();
                     if (statusLine.getStatusCode() == HttpStatus.SC_OK) {
                         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -345,54 +386,34 @@ public class MainActivity extends ActionBarActivity implements
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
 
-            */
-            String response = "";
-            if (isNetworkAvailable()){
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpGet request = new HttpGet(updatedURL);
-                ResponseHandler<String> handler = new BasicResponseHandler();
 
-                try {
-                    response = httpclient.execute(request, handler);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Log.d(TAG, "Received: "+response);
 
+                //initialise List of stopName,stopLocation pairs
                 List<JsonParser.Pair> parsedResponse = new ArrayList<JsonParser.Pair>();
-                parsedResponse = JsonParser.parseJson(response);
-                Log.d(TAG, "Parsed: "+parsedResponse);
+                //parse server response into list
+                parsedResponse = JsonParser.parseJson(responseString);
+                //transfer parsed list into static stop list
+                JsonParser.staticStopList.setList(parsedResponse);
+                for (int i = 0; i < parsedResponse.size() ; i++){
+                    //print received stops into log for verification/testing
+                    Location parsedStop = (Location) parsedResponse.get(i).getStopLocation();
+                    Log.d(TAG, "parsed: "+parsedResponse.get(i).getName() + " : "+ parsedStop.getLatitude()+", "+parsedStop.getLongitude());
+                }
             }
-            return response;
+            return responseString;
         }
-
-        private String getUrlWithParams(String url) {
-            String urlWithParams = url;
-            //nothing N or E
-            urlWithParams += nText.getText() ;
-            //Bus number
-            urlWithParams += busNumberEdit.getText();
-            //latitude
-            urlWithParams += "+" + mCurrentLocation.getLatitude();
-            //longitude
-            urlWithParams += "+" + mCurrentLocation.getLongitude();
-            //bearing
-            urlWithParams += "+" + mLastBearing;
-            Log.e("urlwithparams", urlWithParams);
-            return urlWithParams;
-
-        }
-
 
 
         //Happens at the end of AsynTask
         @Override
         protected void onPostExecute(String result) {
             super.onPostExecute(result);
+            Log.d("response",result);
+            //remove Connecting message
+            loadingMessageText.setText("");
 
-            if (result!=null) {
+            if (!result.equals("")) {
                 //trigger success button
                 progressButton.setProgress(100);
                 //starts new activity sending the data received from server to it
@@ -404,6 +425,9 @@ public class MainActivity extends ActionBarActivity implements
 
                 if (!isNetworkAvailable()) {
                     Utils.displayPromptForEnablingInternet(activity);
+                }else {
+                    Toast.makeText(activity.getApplicationContext(),"Can not connect to the server.",Toast.LENGTH_LONG).show();
+
                 }
 
                 //if we fail let user edit fields again
@@ -417,10 +441,7 @@ public class MainActivity extends ActionBarActivity implements
         private void startNewActivity(String result) {
             Intent intent = new Intent(MainActivity.this,NextStopsAcitivity.class);
             //sends bus number from edittext to be displayed in action bar of next activity
-            intent.putExtra("busNumber",busNumberEdit.getText().toString());
-            intent.putExtra("stop1","stop1");
-            intent.putExtra("stop1","stop1");
-            intent.putExtra("stop1","stop1");
+            intent.putExtra("busNumber",nText.getText().toString() + busNumberEdit.getText().toString());
             startActivity(intent);
             //transition to use between these two activities
             overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
