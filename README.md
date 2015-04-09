@@ -8,7 +8,7 @@ Install requirements from requirements.txt, it is recommended to install the pac
 
 To run the server run $ python manage.py runserver to play around with the database you can run an interactive python session witht the database with $ python manage.py shell
 
-## Step-by-step guide to run the project:
+## Step-by-step guide to run the project locally:
 
 Initialise a virtualenvironment using the virtualenv command.
 ```bash
@@ -39,3 +39,16 @@ python manage.py shell
 
 You can test the API with curl: $ curl $ curl http://127.0.0.1:5000/api/buses/NAME
 Where NAME is the service name.
+
+## Deploying the server
+
+Connect to the DigitalOcean droplet server through SSH or the DigitalOcean browser-based terminal, login as root.
+Pull latest backend code, modifying directory paths to absolute ones:
+```
+cd /var/www/ec/
+git pull
+nano /var/www/ec/mongoflask/brain.py //Change 'tfe_api/...txt' to '/var/www/ec/mongoflask/tfe_api...'
+sudo service apache2 restart
+```
+The server is accessible from http://178.62.140.115/ , with API calls in the format
+http://178.62.140.115/api/next/<String servicename>+<Double latitude>+<Double longitude>+<Orientation bearing>
