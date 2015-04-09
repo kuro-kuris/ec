@@ -8,22 +8,12 @@
             content="Accessible bus stop tracker">
       <meta name="author" content="Patrick Cartlidge, Roosa Tammela, Chris Swart">
       <meta name="viewport" value="initial-scale=1.0, minimum-scale=1.0, maximum-scale=2.0">
-      <title>ediBus - Please Enter Bus Number</title>
+      <title>ediBus - Flask backend</title>
+      <link rel="stylesheet" href="static/style.css">
   </head>
 
   <body>
-    <div>Microblog: <a href="/index">Home</a></div>
-    <hr>
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul>
-        {% for message in messages %}
-            <li>{{ message }} </li>
-        {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    {% block content %}{% endblock %}
+
   </body>
   
 </html>
