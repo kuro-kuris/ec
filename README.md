@@ -51,4 +51,6 @@ nano /var/www/ec/mongoflask/brain.py //Change 'tfe_api/...txt' to '/var/www/ec/m
 sudo service apache2 restart
 ```
 The server is accessible from http://178.62.140.115/ , with API calls in the format
-http://178.62.140.115/api/next/<String servicename>+<Double latitude>+<Double longitude>+<Orientation bearing>
+http://178.62.140.115/api/next/servicename+latitude+longitude+bearing
+i.e.
+http://178.62.140.115/api/next/34+34.5754+-3.234+127
