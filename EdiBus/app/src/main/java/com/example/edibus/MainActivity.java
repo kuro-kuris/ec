@@ -345,11 +345,10 @@ public class MainActivity extends ActionBarActivity implements
             if (testing) {
                 while (mCurrentLocation==null) {
                 }
-                mCurrentLocation.setLatitude(55.944633);
-                mCurrentLocation.setLongitude(-3.187080);
+                mCurrentLocation.setLatitude(55.9443865);
+                mCurrentLocation.setLongitude(-3.1868032);
                 mLastBearing = 100;
             }
-
             String updatedURL;
             //do nothing until bearing gets updated
             while (mLastBearing == -1) {
