@@ -126,6 +126,13 @@ public class NextStopsAcitivity extends ActionBarActivity implements
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        //discard old list
+        JsonParser.staticStopList.setToNull();
+    }
+
     //Updates UI with the upcoming stops
     private void updateStopsUI() {
         //first stop
@@ -138,7 +145,7 @@ public class NextStopsAcitivity extends ActionBarActivity implements
             stopTextView1.setText("No more stops");
         }
         //second stop
-        if (parsedResponse.size()>0) {
+        if (parsedResponse.size()>1) {
             String stopName = (String)parsedResponse.get(1).getName();
             stopTextView2.setText(stopName);
         }else {
@@ -146,7 +153,7 @@ public class NextStopsAcitivity extends ActionBarActivity implements
         }
 
         //third stop
-        if (parsedResponse.size()>1) {
+        if (parsedResponse.size()>2) {
             String stopName = (String)parsedResponse.get(2).getName();
             stopTextView3.setText(stopName);
         }else {
