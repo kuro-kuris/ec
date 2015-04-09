@@ -54,3 +54,8 @@ The server is accessible from http://178.62.140.115/ , with API calls in the for
 http://178.62.140.115/api/next/servicename+latitude+longitude+bearing
 i.e.
 http://178.62.140.115/api/next/34+34.5754+-3.234+127
+
+## Usign the apk
+
+To use the application yourself just transfar the .apk you your phone, make sure you have Unknown sources enabled, and through the file explorer install the application.
+
